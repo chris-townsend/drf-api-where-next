@@ -12,14 +12,14 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=200)
     about = models.TextField(blank=True)
-    post_image = models.ImageField(
+    image = models.ImageField(
         upload_to='images/', default='../default_post_twjz4m', blank=True)
 
     class Meta:
         """
         Return post instances in reverse order so newest is first
         """
-        ordering = ['-created_at']
+        ordering = ['-created_date']
 
     def __str__(self):
         return f'{self.id} {self.title}'
