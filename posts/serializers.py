@@ -17,17 +17,18 @@ class PostSerializer(serializers.ModelSerializer):
         """
         Image validation function
         """
-        if value.size > 1024 * 1024 * 2:
+        if value.size > 2 * 1024 * 1024:
             raise serializers.ValidationError(
-                'Image size too big, must be below 2MB!')
-            if value.image.width > 4096:
-                raise serializers.ValidationError(
-                    'Image width larger than 4096px!')
-            if value.image.height > 4096:
-                raise serializers.ValidationError(
-                    'Image height larger than 4096px!')
-
-            return value
+                'Image size too big! Must be smaller than 2MB')
+        if value.image.height > 4096:
+            raise serializers.ValidationError(
+                'Image height larger than 4096px!'
+            )
+        if value.image.width > 4096:
+            raise serializers.ValidationError(
+                'Image width larger than 4096px!'
+            )
+        return value
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -40,7 +41,6 @@ class PostSerializer(serializers.ModelSerializer):
 
         model = Post
         fields = [
-            'id', 'owner', 'created_date', 'updated_date', 'location',
-            'favourite_location', 'bio', 'profile_image', 'is_owner',
-            'profile_id', 'title', 'image'
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'created_date', 'updated_date', 'title', 'about', 'image',
         ]
