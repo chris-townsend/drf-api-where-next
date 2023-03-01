@@ -8,6 +8,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     Specify owner as read only so it can't be edited, populate with owners username
     """
     owner = serializers.ReadOnlyField(source='owner.username')
+    is_owner = serializers.SerializerMethodField()
+
+    def get_is_owner(self, obj):
+        request = self.context['request']
+        return request.user == obj.owner
 
     class Meta:
         """
@@ -16,5 +21,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [
             'id', 'owner', 'created_date', 'updated_date', 'name', 'location',
-            'favourite_location', 'bio', 'profile_image'
+            'favourite_location', 'bio', 'profile_image', 'is_owner'
         ]
