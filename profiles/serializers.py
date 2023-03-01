@@ -18,6 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         Specify fields from Profile model
         """
+    
         model = Profile
         fields = [
             'id', 'owner', 'created_date', 'updated_date', 'name', 'location',
