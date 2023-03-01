@@ -180,7 +180,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=50, choices=COUNTRIES, blank=True)
     favourite_location = models.CharField(max_length=50, blank=True)
     bio = models.TextField(blank=True)
-    profile_image = models.ImageField(
+    image = models.ImageField(
         upload_to='images/', default='../default_user_s9bxgj')
 
     class Meta:
