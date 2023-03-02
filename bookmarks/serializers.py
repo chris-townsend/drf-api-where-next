@@ -1,21 +1,21 @@
 from django.db import IntegrityError
 from rest_framework import serializers
-from .models import Like
+from .models import Bookmark
 
 
-class LikeSerializer(serializers.ModelSerializer):
+class BookmarkSerializer(serializers.ModelSerializer):
     """
-    Like serializer which converts Like model into JSON
+    Bookmark serializer which converts Bookmark model into JSON
     """
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
-        model = Like
+        model = Bookmark
         fields = ['id', 'owner', 'post', 'created_date']
 
     def create(self, validated_data):
         """
-        If a user tries to like the same post multiple times
+        If a user tries to bookmark the same post multiple times,
         it will throw a duplicate error
         """
         try:
