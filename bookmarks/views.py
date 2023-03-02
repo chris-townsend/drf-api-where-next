@@ -14,3 +14,12 @@ class BookmarkList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class BookmarkDetail(generics.RetrieveDestroyAPIView):
+    """
+    Bookmarks can be retrieved and deleted
+    """
+    serializer_class = BookmarkSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = Bookmark.objects.all()
