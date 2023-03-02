@@ -6,7 +6,7 @@ from .serializers import CommentSerializer, CommentDetailSerializer
 
 class CommentList(generics.ListCreateAPIView):
     """
-    List comments or create a comment if a user is logged-in
+    List comments and create a comment if a user is logged-in
     """
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -14,3 +14,12 @@ class CommentList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Comments can be retrieved, updated, and deleted
+    """
+    serializer_class = CommentDetailSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = Comment.objects.all()
