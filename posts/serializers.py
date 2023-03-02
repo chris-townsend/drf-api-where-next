@@ -38,7 +38,6 @@ class PostSerializer(serializers.ModelSerializer):
         """
         Specify fields from Post model
         """
-
         model = Post
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
