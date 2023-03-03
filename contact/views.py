@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from .models import ContactForm
+from .serializers import ContactSerializer
+from where_next_drf_api.permissons import IsOwnerOrReadOnly
 
-# Create your views here.
+
+class ContactList(generics.ListCreateAPIView):
+    """
+    List messages or create a message if the user is logged-in
+    """
+    queryset = ContactForm.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

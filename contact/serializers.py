@@ -9,8 +9,6 @@ class ContactSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source="owner.username")
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
-    created_date = serializers.SerializerMethodField()
-    updated_date = serializers.SerializerMethodField()
 
     class Meta:
         """
