@@ -1,5 +1,5 @@
 from django.db.models import Count
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from .models import Post
 from .serializers import PostSerializer
 from where_next_drf_api.permissons import IsOwnerOrReadOnly
@@ -17,6 +17,12 @@ class PostList(generics.ListCreateAPIView):
         comments_count=Count('comment', distinct=True),
         likes_count=Count('likes', distinct=True)
     ).order_by('-created_date')
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = [
+        'likes_count',
+        'comments_count',
+        'likes__created_date',
+        ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
