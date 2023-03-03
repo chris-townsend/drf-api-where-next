@@ -17,6 +17,8 @@ class PostSerializer(serializers.ModelSerializer):
     created_date = serializers.SerializerMethodField()
     updated_date = serializers.SerializerMethodField()
     like_id = serializers.SerializerMethodField()
+    likes_count = serializers.ReadOnlyField()
+    comments_count = serializers.ReadOnlyField()
 
     def get_created_date(self, obj):
         """
@@ -74,5 +76,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_date', 'updated_date', 'title', 'about', 'image',
-            'like_id'
+            'like_id', 'likes_count', 'comments_count'
         ]
