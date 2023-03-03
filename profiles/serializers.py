@@ -1,6 +1,7 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Profile
+from followers.models import Follower
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -13,10 +14,25 @@ class ProfileSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     created_date = serializers.SerializerMethodField()
     updated_date = serializers.SerializerMethodField()
+    following_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
+
+    def get_following_id(self, obj):
+        """
+        Display a users current following count and following id
+        if the user is logged-in, else the field will display null
+        """
+        user = self.context['request'].user
+        if user.is_authenticated:
+            following = Follower.objects.filter(
+                owner=user,
+                followed=obj.owner
+            ).first()
+            return following.id if following else None
+        return None
 
     def get_created_date(self, obj):
         """
@@ -38,5 +54,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [
             'id', 'owner', 'created_date', 'updated_date', 'name', 'location',
-            'favourite_location', 'date_of_birth', 'bio', 'is_owner',
+            'favourite_location', 'date_of_birth', 'bio', 'is_owner', 'following_id'
         ]
