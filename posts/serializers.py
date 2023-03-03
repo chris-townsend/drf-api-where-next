@@ -1,6 +1,7 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Post
+from likes.models import Like
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -15,6 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     created_date = serializers.SerializerMethodField()
     updated_date = serializers.SerializerMethodField()
+    like_id = serializers.SerializerMethodField()
 
     def get_created_date(self, obj):
         """
@@ -49,6 +51,21 @@ class PostSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_like_id(self, obj):
+        """
+        Display a users current like count and like id
+        if the user is logged-in, else the field will display null
+        """
+        user = self.context['request'].user
+        if user.is_authenticated:
+            like = Like.objects.filter(
+                owner=user,
+                post=obj
+            ).first()
+            return like.id if like else None
+
+        return None
+
     class Meta:
         """
         Specify fields from Post model
@@ -57,4 +74,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_date', 'updated_date', 'title', 'about', 'image',
+            'like_id'
         ]
