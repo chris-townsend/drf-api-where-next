@@ -1,4 +1,5 @@
-from rest_framework import generics
+from django.db.models import Count
+from rest_framework import generics, filters
 from .models import Profile
 from .serializers import ProfileSerializer
 from where_next_drf_api.permissons import IsOwnerOrReadOnly
@@ -9,7 +10,9 @@ class ProfileList(generics.ListAPIView):
     ProfileList generic class which lists all Profiles,
     Profile creation is handled by Django signals
     """
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.annotate(
+        posts_count=Count('owner__post', distinct=True),
+    )
     serializer_class = ProfileSerializer
 
 
