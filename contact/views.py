@@ -14,3 +14,13 @@ class ContactList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class ContactDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a message and delete it by id if the user is
+    logged-in as admin
+    """
+    queryset = ContactForm.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = [permissions.IsAdminUser]
