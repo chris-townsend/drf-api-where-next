@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Follower
@@ -9,6 +10,13 @@ class FollowerSerializer(serializers.ModelSerializer):
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     followed_name = serializers.ReadOnlyField(source='followed.username')
+    created_date = serializers.SerializerMethodField()
+
+    def get_created_date(self, obj):
+        """
+        Returns a human readable time for follower date
+        """
+        return naturaltime(obj.created_date)
 
     class Meta:
         model = Follower
