@@ -1,108 +1,173 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **_Where next? - Django REST Framework API_**
 
-Welcome chris-townsend,
+This repository is the back-end REST API which is used by my front-end project, [Where next]()
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+You can view the live site here - 
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+You can view the live API here - 
 
-## Gitpod Reminders
+You can view the front-end README.md here - 
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+You can view the back-end README.md here - 
 
-`python3 -m http.server`
+# Contents
 
-A blue button should appear to click: _Make Public_,
+- [**Objective**](#objective)
+- [**Entity Relationship Diagram**](#entity-relationship-diagram)
+- [**Database**](#database)
+- [**Models**](#models)
+- [**Testing**](#testing)
+  - [**Manual Testing**](#manual-testing)
+  - [**PEP8 Validation**](#pep8-validation)
+  - [**Bugs Fixed**](#bugs-fixed)
+  - [**Bugs Unresolved**](#bugs-unresolved)
+- [**Technologies Used**](#technologies-used)
+- [**Deployment To Heroku**](#deployment-to-heroku)
+- [**Credits**](#credits)
+  - [**Content**](#content)
+  - [**Media**](#media)
+- [**Acknowledgments**](#acknowledgements)
 
-Another blue button should appear to click: _Open Browser_.
+# 
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+# Objective
 
-A blue button should appear to click: _Make Public_,
 
-Another blue button should appear to click: _Open Browser_.
+[Back to top](#contents)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+# Entity Relationship Diagram
 
-To log into the Heroku toolbelt CLI:
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+![Entity Relationship Diagram]()
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+[Back to top](#contents)
 
-------
+# Database
 
-## Release History
+For this project, I implemented two databases.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+The first one was the [SQLite](https://www.sqlite.org/index.html). This was used for the development side of the project and allows you to have a small, fast, self-contained SQL database engine.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+The second database, which is a PostgreSQL database hosted by [ElephantSQL](https://www.elephantsql.com/) was used for the production database.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+### Production Database
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Development Database
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+[Back to top](#contents)
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+# Models
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+### Comment
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+The comment model allows the user to create a comment on a post. If a comment is deleted, it is deleted from both the User and post models
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | User, on_delete=models.CASCADE     |
+| created_date   | DateTimeField | auto_now_add=True                  |
+| updated_date   | DateTimeField | auto_now=True                      |
+| comment        | TextField     |                                    |
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+### Profile
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
 
-------
 
-## FAQ about the uptime script
+[Back to top](#contents)
 
-**Why have you added this script?**
+# Testing
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+## Manual Testing
 
-**How will this affect me?**
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+## PEP8 Validation
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
 
-**So….?**
+### profiles
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
 
-**Can I opt out?**
+### comments
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+## Bugs Fixed
 
-**Anything more?**
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+## Bugs Unresolved
 
----
 
-Happy coding!
+# Technologies Used
+
+## Languages
+
+- [Python](https://www.python.org/) - A programming language that lets you work quickly
+  and integrate systems more effectively
+
+## Libraries and Frameworks
+
+- [Django](https://pypi.org/project/Django/) - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
+
+- [Django REST Framework](https://pypi.org/project/djangorestframework/) - A powerful and flexible toolkit for building Web APIs
+
+## Packages
+
+- [cloudinary](https://pypi.org/project/cloudinary/) - Easily integrate your application with Cloudinary
+- [dj-database-url](https://pypi.org/project/dj-database-url/) - Allows you to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
+- [dj-rest-auth](https://pypi.org/project/dj-rest-auth/) - API endpoints for handling authentication securely in Django Rest Framework
+- [django-allauth](https://pypi.org/project/django-allauth/) - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication
+- [django-cloudinary-storage](https://pypi.org/project/django-cloudinary-storage/) - package that facilitates integration with Cloudinary by implementing Django Storage API
+- [django-cors-headers](https://pypi.org/project/django-cors-headers/) - Adds Cross-Origin Resource Sharing (CORS) headers to responses.
+- [django-extensions](https://pypi.org/project/django-extensions/) - Collection of global custom management extensions for the Django Framework.
+- [django-filter](https://pypi.org/project/django-filter/) - Declaratively add dynamic QuerySet filtering from URL parameters.
+- [django-rest-auth](https://pypi.org/project/django-rest-auth/) - Provides a set of REST API endpoints for Authentication and Registration
+- [djangorestframework-simplejwt](https://pypi.org/project/djangorestframework-simplejwt/) - JSON Web Token authentication plugin for the Django REST Framework.
+- [gunicorn](https://pypi.org/project/gunicorn/) - A Python WSGI HTTP Server for UNIX.
+- [idna](https://pypi.org/project/idna/) - Support for the Internationalized Domain Names in Applications (IDNA) protocol
+- [mypy-extensions](https://pypi.org/project/mypy-extensions/) - Defines extensions to the standard “typing” module that are supported by the mypy type checker and the mypyc compiler.
+- [oauthlib](https://pypi.org/project/oauthlib/) - Implements the logic of OAuth1 or OAuth2 without assuming a specific HTTP request object or web framework.
+- [pathspec](https://pypi.org/project/pathspec/) - Utility library for pattern matching of file paths
+- [Pillow](https://pypi.org/project/Pillow/) - Adds image processing capabilities to your Python interpreter
+- [psycopg2](https://pypi.org/project/psycopg2/) - PostgreSQL database adapter for Python
+- [pycodestyle](https://pypi.org/project/pycodestyle/) - A tool to check your Python code against some of the style conventions in PEP 8.
+- [pydot](https://pypi.org/project/pydot/) - Library to generate .dot files which can be used to show ERD's
+- [PyJWT](https://pypi.org/project/PyJWT/) - Library for encoding and decoding JSON Web Tokens (JWT)
+- [pyparsing](https://pypi.org/project/pyparsing/) - Python parsing module
+- [pytz](https://pypi.org/project/pytz/) - Allows accurate and cross platform timezone calculations
+- [requests](https://pypi.org/project/requests/) - Allows you to send HTTP/1.1 requests
+- [requests-oauthlib](https://pypi.org/project/requests-oauthlib/) - OAuthlib authentication support for Requests
+
+- [sqlparse](https://pypi.org/project/sqlparse/) - A non-validating SQL parser for Python. It provides support for parsing, splitting and formatting SQL statements.
+- [urllib3](https://pypi.org/project/urllib3/) - A powerful, user-friendly HTTP client for Python
+
+## Other Tools
+
+- [GitHub](https://github.com/) - Used to host and deploy the website as well as manage the project.
+- [Heroku](https://dashboard.heroku.com) - Used to deploy the website
+- [SQLite](https://www.sqlite.org/index.html) - An open-source, zero-configuration, self-contained, stand-alone, transaction relational database engine designed to be embedded into an application.
+- [ElephantSQL](https://www.elephantsql.com/) - Provides a browser tool for SQL queries where you can create, read, update and delete data directly from your web browser.
+- [Cloudinary](https://cloudinary.com/) - Used to host all static files .
+
+- [CI PEP8 Linter](https://pep8ci.herokuapp.com/#)
+
+[Back to top](#contents)
+
+# Deployment To Heroku
+
+
+[Back to top](#contents)
+
+# Credits
+
+### Content
+
+
+[Back to top](#contents)
+
+# Acknowledgments
+
+
+[Back to top](#contents)
