@@ -215,7 +215,7 @@ To initialise a Django project, first Django must be installed within your Pytho
 
 # Deployment To Heroku
 
-## Create & attach the ElephantSQL database
+### Create the ElephantSQL database:
 
 As the database provided by Django is only accessible within Gitpod and is not suitable for a production environment. The deployed project on Heroku will not be able to access it. So, you need to create a new database that can be accessed by Heroku. The following steps will create a new PostgreSQL database instance for use within the project.
 
@@ -251,11 +251,30 @@ As the database provided by Django is only accessible within Gitpod and is not s
 
 ## Heroku
 
-
-
-
-
 To deploy this page to Heroku from its GitHub repository, the following steps were taken:
+
+### Create the Heroku App:
+
+1. Log in to [Heroku](https://dashboard.heroku.com/apps) or create an account.
+![Heroku Signup](docs/deployment/heroku/heroku-signup.webp)
+
+2. On your Heroku dashboard, click the button labelled **New** in the top right corner and from the drop-down menu select **Create new app**.
+![Heroku Dashboard](docs/deployment/heroku/heroku-dashboard.webp)
+![Create new app](docs/deployment/heroku/heroku-create-app.webp)
+
+3. Enter a **unique and meaningful app name** and **choose the region** which is best suited to your location.
+![Meaningful app-name](docs/deployment/heroku/heroku-meaningful-name.webp)
+- Click on the **Create app** button.
+
+4. Select **Settings** from the tabs at the top of the app page.
+![Heroku app settings](docs/deployment/heroku/heroku-dashboard-settings.webp)
+
+5. Click **Reveal Config Vars**.    
+![Heroku app settings](docs/deployment/heroku/heroku-config-vars.webp)
+
+6. Add a Config Var `DATABASE_URL` and for the value, copy in your database URL from your ElephantSQL database instance.
+![Heroku app settings](docs/deployment/heroku/heroku-config-var-setup.webp)
+
 
 
 
