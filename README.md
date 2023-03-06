@@ -168,6 +168,7 @@ This site was made using [GitHub](#github) & [Gitpod](https://www.gitpod.io/). T
 1. Sign in to GitHub and navigate to [Code Institute's Gitpod template](https://github.com/Code-Institute-Org/gitpod-full-template).
 ![GitHub Code Institute template](docs/development/github/github-use-this-template.webp)
  - At the top of the repository, click **Use this template** followed by **Create a new repository**.
+
  ![GitHub Code Institute template](docs/development/github/github-create-new-repository.webp)
 
 *Alternatively:*
@@ -188,7 +189,7 @@ The repository has now been created and is ready for editing through the Gitpod 
  
 ***
 
-[Back to top ⇧](#kitchen-tales)
+[Back to top ⇧](#contents)
 
 ## Django
 
@@ -198,10 +199,66 @@ To initialise a Django project, first Django must be installed within your Pytho
 
 **Django 3.2 is the LTS (Long Term Support) version of Django and is therefore preferable to use over the newest Django 4.**
 
+**1.** Create a Django project (*drf-api-where-next*): ``django-admin startproject 'PROJ_NAME' .`` 
+
+**(Don’t forget the ``.`` at the end of the project name to tell Django admin we want to create our project in the current directory.)**
+
+ - This should have created a new directory called your ``'PROJ_NAME'`` and a ``manage.py`` file. Within your project folder, you should see the file settings and URL files added to the directory.
+
+**2.** Install Cloudinary libraries: ``pip3 install dj3-cloudinary-storage``
+
+- Cloudinary will be used to store our static media files.
+
+
+
+
+
 # Deployment To Heroku
 
+## Create & attach the ElephantSQL database
+
+As the database provided by Django is only accessible within Gitpod and is not suitable for a production environment. The deployed project on Heroku will not be able to access it. So, you need to create a new database that can be accessed by Heroku. The following steps will create a new PostgreSQL database instance for use within the project.
+
+1. Log in to [ElephantSQL](https://customer.elephantsql.com/instance#) to access your dashboard.
+![Elephant SQL dashboard](docs/deployment/elephant-sql/elephant-sql-dashboard.webp)
+
+2. Click **Create New Instance** at the top right of the page.        
+![Elephant SQL new instance](docs/deployment/elephant-sql/elephant-create-new-instance.webp)
+
+3. Set up your **plan**.
+- Give your plan a **Name** (this is commonly the name of the project)
+- Select the **Tiny Turtle (Free)** plan
+- You can leave the **Tags** field blank
+
+![Elephant SQL setup plan](docs/deployment/elephant-sql/elephant-setup-plan.webp)
+
+4. Click **Select Region**.        
+![Elephant SQL select region](docs/deployment/elephant-sql/elephant-select-region.webp)
+
+5. Select a **data centre** near you.
+![Elephant SQL select data center](docs/deployment/elephant-sql/elephant-select-data-center.webp)
+
+6. Click **Review**.                 
+![Elephant SQL review data center](docs/deployment/elephant-sql/elephant-review-data.webp)
+
+7. Ensure your details are correct and then click **Create instance**.
+![Elephant SQL confirm instance](docs/deployment/elephant-sql/elephant-confirm-instance.webp)
+
+8. Return to the **ElephantSQL dashboard** and you should see your **database instance name** for this project.
+![Elephant SQL dashboard instance](docs/deployment/elephant-sql/elephant-dashboard.webp)
 
 [Back to top](#contents)
+
+## Heroku
+
+
+
+
+
+To deploy this page to Heroku from its GitHub repository, the following steps were taken:
+
+
+
 
 # Credits
 
