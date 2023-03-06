@@ -67,7 +67,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', 'https://where-next-drf-api.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost', os.environ.get('ALLOWED_HOST')]
 
 
 # Application definition
