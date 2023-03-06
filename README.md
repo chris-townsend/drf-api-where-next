@@ -22,6 +22,7 @@ You can view the back-end README.md here -
   - [**Bugs Fixed**](#bugs-fixed)
   - [**Bugs Unresolved**](#bugs-unresolved)
 - [**Technologies Used**](#technologies-used)
+- [**Development**](#development)
 - [**Deployment To Heroku**](#deployment-to-heroku)
 - [**Credits**](#credits)
   - [**Content**](#content)
@@ -154,6 +155,48 @@ The comment model allows the user to create a comment on a post. If a comment is
 - [CI PEP8 Linter](https://pep8ci.herokuapp.com/#)
 
 [Back to top](#contents)
+
+
+# Development
+
+This site was made using [GitHub](#github) & [Gitpod](https://www.gitpod.io/). The site was further developed using [Django](#django).
+
+## GitHub
+
+### Create the repository
+
+1. Sign in to GitHub and navigate to [Code Institute's Gitpod template](https://github.com/Code-Institute-Org/gitpod-full-template).
+![GitHub Code Institute template](docs/development/github/github-use-this-template.webp)
+ - At the top of the repository, click **Use this template** followed by **Create a new repository**.
+ ![GitHub Code Institute template](docs/development/github/github-create-new-repository.webp)
+
+*Alternatively:*
+
+1. Click the GitHub label in the top left of the nav section.
+![GitHub create repository](docs/development/github/github-label.webp)
+
+2. Select **New** next to **Top Repositories**.     
+![GitHub click new repository](docs/development/github/github-new.webp)
+
+3. Select the **template** you wish to use.                
+![GitHub select template](docs/development/github/github-select-template.webp)
+
+4. Give the repository a name and description and then click **Create repository**.
+![GitHub create repository](docs/development/github/github-create-repository.webp)
+
+The repository has now been created and is ready for editing through the Gitpod terminal.
+ 
+***
+
+[Back to top ⇧](#kitchen-tales)
+
+## Django
+
+### Installing Django and supporting libraries
+
+To initialise a Django project, first Django must be installed within your Python environment. This is done via the command ``pip3 install 'django<4' gunicorn``
+
+**Django 3.2 is the LTS (Long Term Support) version of Django and is therefore preferable to use over the newest Django 4.**
 
 # Deployment To Heroku
 
