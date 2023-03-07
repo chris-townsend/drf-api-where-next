@@ -23,7 +23,11 @@ You can view the back-end README.md here -
   - [**Bugs Unresolved**](#bugs-unresolved)
 - [**Technologies Used**](#technologies-used)
 - [**Development**](#development)
-- [**Deployment To Heroku**](#deployment-to-heroku)
+  - [GitHub](#github)
+  - [Django](#django)
+- [**Deployment**](#deployment)
+  - [ElephantSQL](#create-the-elephantsql-database)
+  - [Heroku](#heroku)
 - [**Credits**](#credits)
   - [**Content**](#content)
   - [**Media**](#media)
@@ -209,45 +213,77 @@ To initialise a Django project, first Django must be installed within your Pytho
 
 - Cloudinary will be used to store our static media files.
 
+**3.** Create a new env.py file at the top-level directory - ``env.py``
+
+#### - Within ``env.py``:
+
+| Instruction | Code |
+| --- | --- |
+| **1.** Import os library | ``import os`` |
+| **2.** Add in secret key | ``os.environ["SECRET_KEY"] = "Make up your own randomSecretKey"`` |
+
+**4.** In the terminal of your Gitpod workspace, install **gunicorn**.
+
+- ```pip3 install gunicorn django-cors-headers```
+
+**5.** Update your `requirements.txt`
+
+```pip freeze --local > requirements.txt```
+
+**6.** Create a file named **Procfile** in the top-level directory - ``Procfile``.
+
+  Add the following code: 
+
+  `` release: python manage.py makemigrations && python manage.py migrate``
+
+  ``web: gunicorn drf_api.wsgi``
+
+**7.** Remove the value for `SECRET_KEY` in **settings.py** and replace with the following code to use an environment variable instead.
+
+- `SECRET_KEY = os.getenv('SECRET_KEY')`
+
+Set a new value for your `SECRET_KEY` environment variable in **env.py**
+
+`os.environ.setdefault("SECRET_KEY", "NEW_SECRET_KEY_HERE")`
 
 
 
 
-# Deployment To Heroku
+# Deployment
 
 ### Create the ElephantSQL database:
 
 As the database provided by Django is only accessible within Gitpod and is not suitable for a production environment. The deployed project on Heroku will not be able to access it. So, you need to create a new database that can be accessed by Heroku. The following steps will create a new PostgreSQL database instance for use within the project.
 
-1. Log in to [ElephantSQL](https://customer.elephantsql.com/instance#) to access your dashboard.
-![Elephant SQL dashboard](docs/deployment/elephant-sql/elephant-sql-dashboard.webp)
+**1.** Log in to [ElephantSQL](https://customer.elephantsql.com/instance#) to access your dashboard.
+![Elephant SQL dashboard](docs/deployment/elephant-sql/elephant-dashboard.webp)
 
-2. Click **Create New Instance** at the top right of the page.        
+**2.** Click **Create New Instance** at the top right of the page.        
 ![Elephant SQL new instance](docs/deployment/elephant-sql/elephant-create-new-instance.webp)
 
-3. Set up your **plan**.
+**3.** Set up your **plan**.
 - Give your plan a **Name** (this is commonly the name of the project)
 - Select the **Tiny Turtle (Free)** plan
 - You can leave the **Tags** field blank
 
 ![Elephant SQL setup plan](docs/deployment/elephant-sql/elephant-setup-plan.webp)
 
-4. Click **Select Region**.        
+**4.** Click **Select Region**.        
 ![Elephant SQL select region](docs/deployment/elephant-sql/elephant-select-region.webp)
 
-5. Select a **data centre** near you.
+**5.** Select a **data centre** near you.
 ![Elephant SQL select data center](docs/deployment/elephant-sql/elephant-select-data-center.webp)
 
-6. Click **Review**.                 
+**6.** Click **Review**.                 
 ![Elephant SQL review data center](docs/deployment/elephant-sql/elephant-review-data.webp)
 
-7. Ensure your details are correct and then click **Create instance**.
+**7.** Ensure your details are correct and then click **Create instance**.
 ![Elephant SQL confirm instance](docs/deployment/elephant-sql/elephant-confirm-instance.webp)
 
-8. Return to the **ElephantSQL dashboard** and you should see your **database instance name** for this project.
+**8.** Return to the **ElephantSQL dashboard** and you should see your **database instance name** for this project.
 ![Elephant SQL dashboard instance](docs/deployment/elephant-sql/elephant-dashboard.webp)
 
-[Back to top](#contents)
+[Back to top ⇧](#contents)
 
 ## Heroku
 
@@ -255,28 +291,171 @@ To deploy this page to Heroku from its GitHub repository, the following steps we
 
 ### Create the Heroku App:
 
-1. Log in to [Heroku](https://dashboard.heroku.com/apps) or create an account.
+**1.** Log in to [Heroku](https://dashboard.heroku.com/apps) or create an account.
 ![Heroku Signup](docs/deployment/heroku/heroku-signup.webp)
 
-2. On your Heroku dashboard, click the button labelled **New** in the top right corner and from the drop-down menu select **Create new app**.
+**2.** On your Heroku dashboard, click the button labelled **New** in the top right corner and from the drop-down menu select **Create new app**.
 ![Heroku Dashboard](docs/deployment/heroku/heroku-dashboard.webp)
 ![Create new app](docs/deployment/heroku/heroku-create-app.webp)
 
-3. Enter a **unique and meaningful app name** and **choose the region** which is best suited to your location.
+**3.** Enter a **unique and meaningful app name** and **choose the region** which is best suited to your location.
 ![Meaningful app-name](docs/deployment/heroku/heroku-meaningful-name.webp)
 - Click on the **Create app** button.
 
-4. Select **Settings** from the tabs at the top of the app page.
+**4.** Select **Settings** from the tabs at the top of the app page.
 ![Heroku app settings](docs/deployment/heroku/heroku-dashboard-settings.webp)
 
-5. Click **Reveal Config Vars**.    
+**5.** Click **Reveal Config Vars**.    
 ![Heroku app settings](docs/deployment/heroku/heroku-config-vars.webp)
 
-6. Add a Config Var `DATABASE_URL` and for the value, copy in your database URL from your ElephantSQL database instance.
+**6.** Add a Config Var `DATABASE_URL` and for the value, copy in your database URL from your ElephantSQL database instance.
 ![Heroku app settings](docs/deployment/heroku/heroku-config-var-setup.webp)
 
+**7.** To connect to our external database, **dj_database_url** and **psycopg2** are required, install in the terminal: 
 
+```
+pip3 install dj_database_url==0.5.0 psycopg2
+```
 
+**8.** In your **settings.py** file, import **dj_database_url** underneath the import for os
+
+```
+import os
+import dj_database_url
+```
+
+**9.** Update the ```DATABASES``` section so that when you have an environment variable for ```DEV``` in your environment the code will connect to the sqlite database here in Gitpod. Otherwise, it will connect to your external database, provided the ```DATABASE_URL``` environment variable exist.
+
+```
+ if 'DEV' in os.environ:
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.sqlite3',
+             'NAME': BASE_DIR / 'db.sqlite3',
+         }
+     }
+ else:
+     DATABASES = {
+         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+     }
+```
+
+**10.** In your `env.py` file, add a new environment variable to Gitpod with the key set to `DATABASE_URL`, and the value to your *ElephantSQL* database URL.
+
+```os.environ.setdefault("DATABASE_URL", "<your PostgreSQL URL here>")```
+
+- *Add quotes as this needs to be a string.*
+
+**11.** Migrate your database models to your new database.
+
+- ```python3 manage.py migrate```
+
+**12.** In *settings.py*, update the value of the `ALLOWED_HOSTS` variable to include your Heroku app’s URL:
+
+```ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']```
+
+**12.** Add corsheaders to `INSTALLED_APPS`.
+
+```
+INSTALLED_APPS = [
+    'dj_rest_auth.registration',
+    'corsheaders',
+ ]
+ ```
+
+ **13.** Add *corsheaders middleware* to the **TOP** of the **MIDDLEWARE.**
+
+ ```
+  SITE_ID = 1
+ MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
+     ...
+ ]
+ ```
+
+ **14.** Import the regular expression module `re` at the top of your settings.py file.
+
+ ```import re```
+ 
+ -  Under the **MIDDLEWARE** list, set the `ALLOWED_ORIGINS` for the network requests made to the server.
+
+```
+ if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(
+        r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE
+    ).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
+```
+
+- The code above is used in order to make the application more secure and when the `CLIENT_ORIGIN_DEV` environment variable is defined, the unique part of the gitpod preview URL is extracted. It is then included in the regular expression so that the gitpod workspace is still connected to our API when gitpod rotates the workspace URL. This allows our API to talk to our development environment. The value for `CLIENT_ORIGIN_DEV` will be set and explained in the [Development](#) section of my front end application.
+
+**15.** Enable sending cookies in cross-origin requests so that users can get authentication functionality - 
+
+```CORS_ALLOW_CREDENTIALS = True```
+
+**16.** To be able to have the front end app and the API deployed to different platforms, set the `JWT_AUTH_SAMESITE` to **'None'**.
+
+```JWT_AUTH_SAMESITE = 'None'```
+
+**17.** Set the **DEBUG** value to True only if the `DEV` environment variable exists. This will mean it is True in development, and False in production.
+
+```DEBUG = 'DEV' in os.environ```
+
+**18.** Ensure the `requirements.txt` file is up to date. 
+
+```pip freeze --local > requirements.txt```
+
+**19.** Back on your **Heroku dashboard**, open the Settings tab.
+
+![Heroku app settings](docs/deployment/heroku/heroku-dashboard-settings.webp)
+
+**20** Input all key-value pairs from the `env.py` file.
+
+![Heroku app settings](docs/deployment/heroku/heroku-config-var-setup.webp)
+
+| KEY | VALUE |
+| --- | --- |
+|``DATABASE_URL``|=  ``****``  |
+|``SECRET_KEY``  |=  ``****``  |
+|``CLOUDINARY_URL`` |=  ``****``  |
+|``DISABLE_COLLECTSTATIC``  |= `1` |
+
+**21.** Select **Deploy** from the tabs at the top of the app page.
+![Heroku deploy](docs/deployment/heroku/heroku-deploy.webp)
+
+**22.** Select **Connect to GitHub** from the deployment methods.
+![Heroku deployment method](docs/deployment/heroku/heroku-deployment-method.webp)
+
+**23.** Search for the repository to connect to by name.
+![Heroku select repository](docs/deployment/heroku/heroku-select-repository.webp)
+
+ - Your app should now be connected to your GitHub account.
+
+![Heroku connected app](docs/deployment/heroku/heroku-connected-app.webp)
+
+ **24.** Select **Enable Automatic Deploys** for automatic deployments.
+
+![Heroku automatic deploy](docs/deployment/heroku/heroku-automatic-deploys.webp)
+
+- If you would like to deploy manually, select **Deploy Branch**. If you manually deploy, you will need to re-deploy each time the repository is updated.
+
+![Heroku manual deploy](docs/deployment/heroku/heroku-manual-deploy.webp)
+
+- For the first time deploying to Heroku, you may have to deploy manually but if you select automatic deploys it will update from then onwards.
+
+**25** Click **View** to view the deployed site.
+![Heroku successful deploy](docs/deployment/heroku/heroku-successful-deploy.webp)
+
+- Check that your program has deployed, you should see the JSON welcome message from the home screen.
+
+![Heroku deployed site](docs/deployment/heroku/where-next-drf-api.webp)
 
 
 # Credits
@@ -284,9 +463,8 @@ To deploy this page to Heroku from its GitHub repository, the following steps we
 ### Content
 
 
-[Back to top](#contents)
 
 # Acknowledgments
 
 
-[Back to top](#contents)
+[Back to top ⇧](#contents)
