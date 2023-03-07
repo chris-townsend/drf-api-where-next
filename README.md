@@ -93,40 +93,36 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 ### PEP8 Validation
 
-Code Institutes PEP8 linter was used to test the Python files. The table below shows the pages tested and their result, all pages are error-free in the final deployment.
+Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test the Python files. The table below shows the pages tested and their result, all pages are error-free in the final deployment.
 
 ![Code Institute's Python linter](docs/testing/python/ci-python-linter.webp)
 
 
-| Page / App             |`where_next_drf_api`|`bookmarks`   |`comments` |`contact`|
-| ---                    |      :---:         |    :---:     |   :---:   |  :---:  |
-| `admin.py`             |     *n/a*          |    *pass*    |           |         | 
-| `apps.py`              |     *n/a*          |    *pass*    |           |         |
-| `permissions.py`       |     *pass*         |              |           |         | 
-| `serializers.py`       |     *n/a*          |    *pass*    |           |         |
-| `models.py`            |     *n/a*          |    *pass*    |           |         |
-| `urls.py`              |     *pass*         |    *pass*    |           |         |
-| `views.py`             |     *n/a*          |    *pass*    |           |         |
-| `wsgi.py`              |                    |              |           |         |
+| *Page / App*           |**where_next_drf_api**|  **bookmarks** |**comments** |**contact**|
+| ---                    |      :---:           |    :---:       |   :---:     |  :---:    |
+| `admin.py`             |     *n/a*            |    *n/a*       |   *n/a*     |  *n/a*    | 
+| `apps.py`              |     *n/a*            |    *pass*      |   *pass*    |  *pass*   |
+| `permissions.py`       |     *pass*           |    *n/a*       |   *n/a*     |  *n/a*    | 
+| `serializers.py`       |     *pass*           |    *pass*      |   *pass*    |  *pass*   |
+| `models.py`            |     *n/a*            |    *pass*      |   *pass*    |  *pass*   |
+| `urls.py`              |     *pass*           |    *pass*      |   *pass*    |  *pass*   |
+| `views.py`             |     *n/a*            |    *pass*      |   *pass*    |  *pass*   |
+| `wsgi.py`              |     *pass*           |    *n/a*       |   *n/a*     |  *n/a*    |
 
 
-| Page / App             |   `followers`  |`likes`       |  `posts`  |  `profiles`  |
-| ---                    |      :---:     |    :---:     |   :---:   |    :---:     | 
-| `admin.py`             |     *n/a*      |    *pass*    |           |              |
-| `apps.py`              |     *n/a*      |    *pass*    |           |              |
-| `permissions.py`       |                |              |           |              | 
-| `serializers.py`       |     *n/a*      |    *pass*    |           |              | 
-| `models.py`            |     *n/a*      |    *pass*    |           |              |
-| `urls.py`              |     *pass*     |    *pass*    |           |              |
-| `views.py`             |     *n/a*      |    *pass*    |           |              |
-| `wsgi.py` 
-
-
+| *Page / App*           |  **followers**  |   **likes**   |  **posts**  |  **profiles**  |
+| ---                    |      :---:      |    :---:      |   :---:     |    :---:       | 
+| `admin.py`             |    *n/a*        |    *n/a*      |   *n/a*     |    *n/a*       |
+| `apps.py`              |    *pass*       |   *pass*      |  *pass*     |    *pass*      |
+| `permissions.py`       |    *n/a*        |    *n/a*      |   *n/a*     |    *n/a*       | 
+| `serializers.py`       |    *pass*       |   *pass*      |  *pass*     |    *pass*      | 
+| `models.py`            |    *pass*       |   *pass*      |  *pass*     |    *pass*      |
+| `urls.py`              |    *pass*       |   *pass*      |  *pass*     |    *pass*      |
+| `views.py`             |    *pass*       |   *pass*      |  *pass*     |    *pass*      |
+| `wsgi.py`              |    *n/a*        |    *n/a*      |   *n/a*     |    *n/a*       | 
 
 
 ***
-
-
 
 ## Manual Testing
 
