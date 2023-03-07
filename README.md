@@ -89,11 +89,51 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 # Testing
 
+## Python
+
+### PEP8 Validation
+
+Code Institutes PEP8 linter was used to test the Python files. The table below shows the pages tested and their result, all pages are error-free in the final deployment.
+
+![Code Institute's Python linter](docs/testing/python/ci-python-linter.webp)
+
+
+| Page / App             |`where_next_drf_api`|`bookmarks`   |`comments` |`contact`|
+| ---                    |      :---:         |    :---:     |   :---:   |  :---:  |
+| `admin.py`             |     *n/a*          |    *pass*    |           |         | 
+| `apps.py`              |     *n/a*          |    *pass*    |           |         |
+| `permissions.py`       |     *pass*         |              |           |         | 
+| `serializers.py`       |     *n/a*          |    *pass*    |           |         |
+| `models.py`            |     *n/a*          |    *pass*    |           |         |
+| `urls.py`              |     *pass*         |    *pass*    |           |         |
+| `views.py`             |     *n/a*          |    *pass*    |           |         |
+| `wsgi.py`              |                    |              |           |         |
+
+
+| Page / App             |   `followers`  |`likes`       |  `posts`  |  `profiles`  |
+| ---                    |      :---:     |    :---:     |   :---:   |    :---:     | 
+| `admin.py`             |     *n/a*      |    *pass*    |           |              |
+| `apps.py`              |     *n/a*      |    *pass*    |           |              |
+| `permissions.py`       |                |              |           |              | 
+| `serializers.py`       |     *n/a*      |    *pass*    |           |              | 
+| `models.py`            |     *n/a*      |    *pass*    |           |              |
+| `urls.py`              |     *pass*     |    *pass*    |           |              |
+| `views.py`             |     *n/a*      |    *pass*    |           |              |
+| `wsgi.py` 
+
+
+
+
+***
+
+
+
 ## Manual Testing
 
 
 
-## PEP8 Validation
+
+
 
 
 ### profiles
@@ -165,7 +205,7 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 # Development
 
-This site was made using [GitHub](#github) & [Gitpod](https://www.gitpod.io/). The site was further developed using [Django](#django).
+This site was made using [GitHub](#github) & [Gitpod](https://www.gitpod.io/). The site was further developed using Django and Django REST framework.
 
 ## GitHub
 
@@ -381,24 +421,30 @@ urlpatterns = [
 ]
 ```
 
-**15.** Create a new env.py file at the top-level directory - `env.py`
+**15.** Remove the value for `SECRET_KEY` in **settings.py** and replace with the following code to use an environment variable instead.
+
+- `SECRET_KEY = os.getenv('SECRET_KEY')`
+
+**16.** Create a new env.py file at the top-level directory - `env.py`
 
 #### - Within `env.py`:
 
 | Instruction | Code |
 | --- | --- |
 | **1.** Import os library | `import os` |
-| **2.** Add in secret key | `os.environ["SECRET_KEY"] = "Make up your own secret key"` |
+| **2.** Add in secret key | `os.environ.setdefault("SECRET_KEY", "NEW_SECRET_KEY_HERE")`  |
 
-**16.** In the terminal of your Gitpod workspace, install **gunicorn**.
+- Set a new value for your `SECRET_KEY` environment variable.
+
+**17.** In the terminal of your Gitpod workspace, install **gunicorn**.
 
 - `pip3 install gunicorn django-cors-headers`
 
-**17.** Update your `requirements.txt`
+**18.** Update your `requirements.txt`
 
 `pip freeze --local > requirements.txt`
 
-**18.** Create a file named **Procfile** at the top-level directory - `Procfile`
+**19.** Create a file named **Procfile** at the top-level directory - `Procfile`
 
 - Add the following code: 
 
@@ -406,14 +452,6 @@ urlpatterns = [
 release: python manage.py makemigrations && python manage.py migrate
 web: gunicorn drf_api.wsgi
 ```
-
-**19.** Remove the value for `SECRET_KEY` in **settings.py** and replace with the following code to use an environment variable instead.
-
-- `SECRET_KEY = os.getenv('SECRET_KEY')`
-
-Set a new value for your `SECRET_KEY` environment variable in **env.py**
-
-`os.environ.setdefault("SECRET_KEY", "NEW_SECRET_KEY_HERE")`
 
 ***
 
@@ -630,7 +668,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 - [Django REST framework](https://www.django-rest-framework.org/)
 
-- [Code Institute - *'Moments'* walkthrough project](https://github.com/Code-Institute-Solutions/drf-api)
+- [Code Institute - *'drf_api'* walkthrough project](https://github.com/Code-Institute-Solutions/drf-api)
 
 
 # Acknowledgments
