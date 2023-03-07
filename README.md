@@ -17,11 +17,14 @@ You can view the back-end README.md here -
 - [**Database**](#database)
 - [**Models**](#models)
 - [**Testing**](#testing)
-  - [**Manual Testing**](#manual-testing)
-  - [**PEP8 Validation**](#pep8-validation)
-  - [**Bugs Fixed**](#bugs-fixed)
-  - [**Bugs Unresolved**](#bugs-unresolved)
+  - [Manual Testing](#manual-testing)
+  - [PEP8 Validation](#pep8-validation)
+  - [Bugs Fixed](#bugs-fixed)
+  - [Bugs Unresolved](#bugs-unresolved)
 - [**Technologies Used**](#technologies-used)
+  - [Languages](#languages)
+  - [Libraries and Frameworks](#libraries-and-frameworks)
+  - [Other Tools](#other-tools)
 - [**Development**](#development)
   - [GitHub](#github)
   - [Django](#django)
@@ -29,8 +32,8 @@ You can view the back-end README.md here -
   - [ElephantSQL](#create-the-elephantsql-database)
   - [Heroku](#heroku)
 - [**Credits**](#credits)
-  - [**Content**](#content)
-  - [**Media**](#media)
+  - [Content](#content)
+  - [Media](#media)
 - [**Acknowledgments**](#acknowledgements)
 
 # 
@@ -118,8 +121,6 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 - [Django REST Framework](https://pypi.org/project/djangorestframework/) - A powerful and flexible toolkit for building Web APIs
 
-## Packages
-
 - [cloudinary](https://pypi.org/project/cloudinary/) - Easily integrate your application with Cloudinary
 - [dj-database-url](https://pypi.org/project/dj-database-url/) - Allows you to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
 - [dj-rest-auth](https://pypi.org/project/dj-rest-auth/) - API endpoints for handling authentication securely in Django Rest Framework
@@ -160,6 +161,7 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 [Back to top](#contents)
 
+*** 
 
 # Development
 
@@ -199,46 +201,213 @@ The repository has now been created and is ready for editing through the Gitpod 
 
 ### Installing Django and supporting libraries
 
-To initialise a Django project, first Django must be installed within your Python environment. This is done via the command ``pip3 install 'django<4' gunicorn``
+To initialise a Django project, first Django must be installed within your Python environment. This is done via the command `pip3 install 'django<4' gunicorn`
 
 **Django 3.2 is the LTS (Long Term Support) version of Django and is therefore preferable to use over the newest Django 4.**
 
-**1.** Create a Django project (*drf-api-where-next*): ``django-admin startproject 'PROJ_NAME' .`` 
+**1.** Create a Django project (*drf-api-where-next*): `django-admin startproject 'PROJ_NAME' .`
 
 **(Don’t forget the ``.`` at the end of the project name to tell Django admin we want to create our project in the current directory.)**
 
- - This should have created a new directory called your ``'PROJ_NAME'`` and a ``manage.py`` file. Within your project folder, you should see the file settings and URL files added to the directory.
+ - This should have created a new directory called your `'PROJ_NAME'` and a `manage.py` file. Within your project folder, you should see the file settings and URL files added to the directory.
 
-**2.** Install Cloudinary libraries: ``pip3 install dj3-cloudinary-storage``
+**2.** Install Cloudinary libraries: `pip3 install dj3-cloudinary-storage`
 
 - Cloudinary will be used to store our static media files.
 
-**3.** Create a new env.py file at the top-level directory - ``env.py``
+**3.** Create Apps within project (*bookmarks, comments, contact, followers, likes, posts, profiles*) - `python3 manage.py startapp 'APP_NAME'`
 
-#### - Within ``env.py``:
+- When the App has been installed, you need to add it to your `INSTALLED_APPS` within `settings.py`
+
+ ```
+ INSTALLED_APPS = [
+    …
+    'bookmarks',
+    'comments',
+    'contact',
+    'followers',
+    'likes',
+    'posts',
+    'profiles'
+]
+```
+
+- Save changes and then **Migrate changes** in the terminal - `python3 manage.py migrate`
+
+- Whenever a new app is created, migrations are automatically created and these changes need migrating. By migrating the changes, it adds all of the changes to the database.
+
+**4.** In order to use JSON web tokens we will be using the Django rest auth library, install by typing in the command: 
+
+- `pip3 install dj-rest-auth`
+
+- In `settings.py`, add **rest_framework.authtoken** and **dj_rest_auth** to `INSTALLED_APPS`
+
+```
+INSTALLED_APPS = [
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+]
+```
+
+**5.** Add the *rest auths urls* to the main **urlpatterns** list.
+
+```
+urlpatterns = [
+    path("dj-rest-auth/", include("dj_rest_auth.urls")),
+]
+```
+- Migrate the database by typing `python manage.py migrate`
+
+**6.** Next install Django allauth with the following command - `pip install 'dj-rest-auth[with_social]'` and add the new application to the `INSTALLED_APPS` variable in **settings.py**.
+
+```
+INSTALLED_APPS = [
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
+]
+```
+
+**7.** Add a `SITE_ID` variable in **settings.py**
+
+`SITE_ID = 1`
+
+**8.** Add the *registration urls* to the main **urlpatterns** list.
+
+```
+urlpatterns = [
+    path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+]
+```
+
+**9.** The Django rest framework doesn’t support JWT tokens for the browser interface out-of-the-box, we’ll need to use session authentication in development and for Production we’ll use Tokens. This will allow us to continue to be able to log into our API as we work on it. To start, install the JWT library - `pip install djangorestframework-simplejwt`
+
+**10.** In `settings.py`, set the **DEBUG** value to True only if the `DEV` environment variable exists. This will mean it is True in development, and False in production.
+
+```DEBUG = 'DEV' in os.environ```
+
+- Add the following code to the `REST_FRAMEWORK` variable to differenciate between development and production. `DATETIME_FORMAT` has been added to present `created_date` and `updated_date` more human-readable. Pagination is used to help manage the request load by chunking the results and makes fetching much easier for the user.
+
+
+![API date/time format ](docs/development/django/api-date-time-format.webp)
+
+```
+REST_PAGINATION = "rest_framework.pagination.PageNumberPagination"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        (
+            "rest_framework.authentication.SessionAuthentication"
+            if "DEV" in os.environ
+            else "dj_rest_auth.jwt_auth.JWTCookieAuthentication"
+        )
+    ],
+    "DEFAULT_PAGINATION_CLASS": REST_PAGINATION,
+    "PAGE_SIZE": 10,
+    "DATETIME_FORMAT": "%d %b %Y",
+}
+```
+
+**11.** To enable token authentication, cookie declaration and to also ensure that the tokens are sent over HTTPS only, add the following code to `settings.py`.
+
+```
+REST_USE_JWT = True
+JWT_AUTH_SECURE = True
+JWT_AUTH_COOKIE = "my-app-auth"
+JWT_AUTH_REFRESH_COOKIE = "my-refresh-token"
+JWT_AUTH_SAMESITE = "None"
+```
+
+**12.** Add the `profile_id` and `profile_image` to fields returned when requesting logged in user details. Firstly create a `serializers.py` file in the main project folder.
+
+- Import the appropriate files - 
+
+```
+from dj_rest_auth.serializers import UserDetailsSerializer
+from rest_framework import serializers
+```
+
+- Create the **profile_id** and **profile_image** fields.
+
+```
+class CurrentUserSerializer(UserDetailsSerializer):
+    profile_id = serializers.ReadOnlyField(source='profile.id')
+    profile_image = serializers.ReadOnlyField(source='profile.image.url')
+    class Meta(UserDetailsSerializer.Meta):
+        fields = UserDetailsSerializer.Meta.fields + ('profile_id', 'profile_image')
+```
+
+- Overwrite the default `USER_DETAILS_SERIALIZER` in **settings.py**:
+
+```
+REST_AUTH_SERIALIZERS = {'USER_DETAILS_SERIALIZER': 'drf_api.serializers.CurrentUserSerializer'}
+```
+
+**13.** Set the default renderer to JSON for the production environment. This means that we want this nice, in-browser interface to be available in development only. All the frontend app cares about is JSON so sending HTML would be pointless. In `settings.py`, below the `REST_FRAMEWORK` variable, add: 
+
+```
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+```
+
+- If the **DEV** environment variable is **NOT** present, set the rest framework’s default renderer classes attribute to JSONRenderer inside a list.
+
+**14.** Create a new root route which will act as a welcome screen to anyone who visits the homepage of our API.
+
+- First create a new `views.py` file in the main project folder (where_next_drf_api) and add the following code:
+
+```
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .settings import (JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE,
+                       JWT_AUTH_SAMESITE, JWT_AUTH_SECURE,)
+
+@api_view()
+def root_route(request):
+    return Response(
+        {"message": "Welcome to my django rest framework API for Where next\
+        - social media platform"})
+```
+
+- Add the new route to the **urlpatterns** list in the main `urls.py` file and remember to import root_route from .views - `from .views import root_route`
+
+```
+urlpatterns = [
+    path('', root_route),
+]
+```
+
+**15.** Create a new env.py file at the top-level directory - `env.py`
+
+#### - Within `env.py`:
 
 | Instruction | Code |
 | --- | --- |
-| **1.** Import os library | ``import os`` |
-| **2.** Add in secret key | ``os.environ["SECRET_KEY"] = "Make up your own randomSecretKey"`` |
+| **1.** Import os library | `import os` |
+| **2.** Add in secret key | `os.environ["SECRET_KEY"] = "Make up your own secret key"` |
 
-**4.** In the terminal of your Gitpod workspace, install **gunicorn**.
+**16.** In the terminal of your Gitpod workspace, install **gunicorn**.
 
-- ```pip3 install gunicorn django-cors-headers```
+- `pip3 install gunicorn django-cors-headers`
 
-**5.** Update your `requirements.txt`
+**17.** Update your `requirements.txt`
 
-```pip freeze --local > requirements.txt```
+`pip freeze --local > requirements.txt`
 
-**6.** Create a file named **Procfile** in the top-level directory - ``Procfile``.
+**18.** Create a file named **Procfile** at the top-level directory - `Procfile`
 
-  Add the following code: 
+- Add the following code: 
 
-  `` release: python manage.py makemigrations && python manage.py migrate``
+```
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn drf_api.wsgi
+```
 
-  ``web: gunicorn drf_api.wsgi``
-
-**7.** Remove the value for `SECRET_KEY` in **settings.py** and replace with the following code to use an environment variable instead.
+**19.** Remove the value for `SECRET_KEY` in **settings.py** and replace with the following code to use an environment variable instead.
 
 - `SECRET_KEY = os.getenv('SECRET_KEY')`
 
@@ -246,8 +415,7 @@ Set a new value for your `SECRET_KEY` environment variable in **env.py**
 
 `os.environ.setdefault("SECRET_KEY", "NEW_SECRET_KEY_HERE")`
 
-
-
+***
 
 # Deployment
 
@@ -284,6 +452,8 @@ As the database provided by Django is only accessible within Gitpod and is not s
 ![Elephant SQL dashboard instance](docs/deployment/elephant-sql/elephant-dashboard.webp)
 
 [Back to top ⇧](#contents)
+
+# 
 
 ## Heroku
 
@@ -324,7 +494,7 @@ import os
 import dj_database_url
 ```
 
-**9.** Update the ```DATABASES``` section so that when you have an environment variable for ```DEV``` in your environment the code will connect to the sqlite database here in Gitpod. Otherwise, it will connect to your external database, provided the ```DATABASE_URL``` environment variable exist.
+**9.** Update the `DATABASES` section so that when you have an environment variable for `DEV` in your environment the code will connect to the sqlite database here in Gitpod. Otherwise, it will connect to your external database, provided the `DATABASE_URL` environment variable exist.
 
 ```
  if 'DEV' in os.environ:
@@ -342,19 +512,19 @@ import dj_database_url
 
 **10.** In your `env.py` file, add a new environment variable to Gitpod with the key set to `DATABASE_URL`, and the value to your *ElephantSQL* database URL.
 
-```os.environ.setdefault("DATABASE_URL", "<your PostgreSQL URL here>")```
+`os.environ.setdefault("DATABASE_URL", "<your PostgreSQL URL here>")`
 
 - *Add quotes as this needs to be a string.*
 
 **11.** Migrate your database models to your new database.
 
-- ```python3 manage.py migrate```
+- `python3 manage.py migrate`
 
 **12.** In *settings.py*, update the value of the `ALLOWED_HOSTS` variable to include your Heroku app’s URL:
 
-```ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']```
+`ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']`
 
-**12.** Add corsheaders to `INSTALLED_APPS`.
+**13.** Add corsheaders to `INSTALLED_APPS`.
 
 ```
 INSTALLED_APPS = [
@@ -363,19 +533,19 @@ INSTALLED_APPS = [
  ]
  ```
 
- **13.** Add *corsheaders middleware* to the **TOP** of the **MIDDLEWARE.**
+ **14.** Add *corsheaders middleware* to the **TOP** of the **MIDDLEWARE.**
 
  ```
-  SITE_ID = 1
+ SITE_ID = 1
  MIDDLEWARE = [
      'corsheaders.middleware.CorsMiddleware',
      ...
  ]
  ```
 
- **14.** Import the regular expression module `re` at the top of your settings.py file.
+ **15.** Import the regular expression module `re` at the top of your settings.py file.
 
- ```import re```
+ `import re`
  
  -  Under the **MIDDLEWARE** list, set the `ALLOWED_ORIGINS` for the network requests made to the server.
 
@@ -396,21 +566,17 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 - The code above is used in order to make the application more secure and when the `CLIENT_ORIGIN_DEV` environment variable is defined, the unique part of the gitpod preview URL is extracted. It is then included in the regular expression so that the gitpod workspace is still connected to our API when gitpod rotates the workspace URL. This allows our API to talk to our development environment. The value for `CLIENT_ORIGIN_DEV` will be set and explained in the [Development](#) section of my front end application.
 
-**15.** Enable sending cookies in cross-origin requests so that users can get authentication functionality - 
+**16.** Enable sending cookies in cross-origin requests so that users can get authentication functionality - 
 
 ```CORS_ALLOW_CREDENTIALS = True```
 
-**16.** To be able to have the front end app and the API deployed to different platforms, set the `JWT_AUTH_SAMESITE` to **'None'**.
+**17.** To be able to have the front end app and the API deployed to different platforms, set the `JWT_AUTH_SAMESITE` to **'None'**.
 
-```JWT_AUTH_SAMESITE = 'None'```
-
-**17.** Set the **DEBUG** value to True only if the `DEV` environment variable exists. This will mean it is True in development, and False in production.
-
-```DEBUG = 'DEV' in os.environ```
+`JWT_AUTH_SAMESITE = 'None'`
 
 **18.** Ensure the `requirements.txt` file is up to date. 
 
-```pip freeze --local > requirements.txt```
+`pip freeze --local > requirements.txt`
 
 **19.** Back on your **Heroku dashboard**, open the Settings tab.
 
@@ -462,6 +628,9 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 ### Content
 
+- [Django REST framework](https://www.django-rest-framework.org/)
+
+- [Code Institute - *'Moments'* walkthrough project](https://github.com/Code-Institute-Solutions/drf-api)
 
 
 # Acknowledgments
