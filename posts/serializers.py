@@ -2,6 +2,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Post
 from likes.models import Like
+from bookmarks.models import Bookmark
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -19,6 +20,7 @@ class PostSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
+    bookmark_count = serializers.ReadOnlyField()
 
     def get_created_date(self, obj):
         """
@@ -76,5 +78,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_date', 'updated_date', 'title', 'about', 'image',
-            'like_id', 'likes_count', 'comments_count'
+            'like_id', 'likes_count', 'comments_count', 'bookmark_count'
         ]
