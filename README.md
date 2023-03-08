@@ -10,9 +10,12 @@ You can view the front-end README.md here -
 
 You can view the back-end README.md here - 
 
-# Contents
+## Contents
 
 - [**Objective**](#objective)
+- [**User Experience (UX)**](#user-experience-ux)
+  - [User Stories](#user-stories)
+- [**Agile Methodology**](#agile-methodology)
 - [**Entity Relationship Diagram**](#entity-relationship-diagram)
 - [**Database**](#database)
 - [**Models**](#models)
@@ -38,10 +41,60 @@ You can view the back-end README.md here -
 
 # 
 
-# Objective
+## Objective
 
 
-[Back to top](#contents)
+*Please note: To open any external links in a new browser tab, please press **CTRL + Click***
+
+#
+
+## User Experience (UX)
+
+### User Stories
+
+7 Epics were created as Milestones which were further developed into 16 User Stories. The user stories were then broken down into tasks to faciliatate the User Story's execution. Most of the issues were closed automatically when commiting to GitHub, as shown in the commit history.
+
+[#1](https://github.com/chris-townsend/drf-api-where-next/issues/1) - *As a **Developer**, I should **install and develop the profiles app** so that **users can create their own profiles.***
+
+[#2](https://github.com/chris-townsend/drf-api-where-next/issues/2) - *As a **Developer**, I should **create a serializer for my profiles app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#3](https://github.com/chris-townsend/drf-api-where-next/issues/3) - *As a **Developer**, I should **install and develop the posts app** so that **users can create their own posts.***
+
+[#4](https://github.com/chris-townsend/drf-api-where-next/issues/4) - *As a **Developer**, I should **create a serializer for my posts app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#5](https://github.com/chris-townsend/drf-api-where-next/issues/5) - *As a **Developer**, I should **develop the post detail view** so that **I can retrieve, update and delete a post.***
+
+[#6](https://github.com/chris-townsend/drf-api-where-next/issues/6) - *As a **Developer**, I should **install and develop the comments app** so that **users can create comments on posts.***
+
+[#7](https://github.com/chris-townsend/drf-api-where-next/issues/7) - *As a **Developer**, I should **create a serializer for my comments app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#8](https://github.com/chris-townsend/drf-api-where-next/issues/8) - *As a **Developer**, I should **create a serializer for my comments detail app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#9](https://github.com/chris-townsend/drf-api-where-next/issues/9) - *As a **Developer**, I should **install and develop the likes app** so that **users can like a post.***
+
+[#10](https://github.com/chris-townsend/drf-api-where-next/issues/10) - *As a **Developer**, I should **create a serializer for my likes app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#11](https://github.com/chris-townsend/drf-api-where-next/issues/11) - *As a **Developer**, I should **install and develop the follower's app** so that **users can follow each other.***
+
+[#12](https://github.com/chris-townsend/drf-api-where-next/issues/12) - *As a **Developer**, I should **create a serializer for my follower's app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#13](https://github.com/chris-townsend/drf-api-where-next/issues/13) - *As a **Developer**, I should **install and develop the bookmarks app** so that **users can bookmark posts***
+
+[#14](https://github.com/chris-townsend/drf-api-where-next/issues/14) - *As a **Developer**, I should **create a serializer for my bookmark's app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+[#15](https://github.com/chris-townsend/drf-api-where-next/issues/15) - *As a **Developer**, I should **install and develop the contact app** so that **users can contact the site owner.***
+
+[#16](https://github.com/chris-townsend/drf-api-where-next/issues/16) - *As a **Developer**, I should **create a serializer for my contact app** so that **my data can be converted to native Python datatypes that can then be easily rendered into `JSON`.***
+
+***
+
+## Agile Methodology
+
+GitHub projects were used to manage the development process using an agile approach. To view the project kanban board, please click on the link [here](https://github.com/users/chris-townsend/projects/6/views/1)
+
+![GitHub kanban board](docs/features/agile/github-kanban-drf-api.webp)
+
+
 
 # Entity Relationship Diagram
 
@@ -51,6 +104,8 @@ You can view the back-end README.md here -
 [Back to top](#contents)
 
 # Database
+
+
 
 For this project, I implemented two databases.
 
