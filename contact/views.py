@@ -19,8 +19,8 @@ class ContactList(generics.ListCreateAPIView):
 
 class ContactDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve a message and delete it by id if the user is
-    logged-in as admin
+    Retrieve a message and delete it by id if the user is the owner
+    of the message or an admin user
     """
     permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
     queryset = ContactForm.objects.all()
