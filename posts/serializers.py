@@ -2,7 +2,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import Post
 from likes.models import Like
-from bookmarks.models import Bookmark
+from comments.models import Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -20,6 +20,7 @@ class PostSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
+    comment_id = serializers.SerializerMethodField()
     bookmark_count = serializers.ReadOnlyField()
 
     def get_created_date(self, obj):
@@ -70,6 +71,21 @@ class PostSerializer(serializers.ModelSerializer):
 
         return None
 
+    def get_comment_id(self, obj):
+        """
+        Display a users current comment count and comment id
+        if the user is logged-in, else the field will display null
+        """
+        user = self.context['request'].user
+        if user.is_authenticated:
+            comment = Comment.objects.filter(
+                owner=user,
+                post=obj
+            ).first()
+            return comment.id if comment else None
+
+        return None
+
     class Meta:
         """
         Specify fields from Post model
@@ -78,5 +94,6 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_date', 'updated_date', 'title', 'about', 'image',
-            'like_id', 'likes_count', 'comments_count', 'bookmark_count'
+            'like_id', 'likes_count', 'comments_count', 'bookmark_count',
+            'comment_id'
         ]
