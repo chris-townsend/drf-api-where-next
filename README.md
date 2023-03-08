@@ -138,6 +138,10 @@ The comment model allows the user to create a comment on a post. If a comment is
 
 ### Profile
 
+### profiles
+
+### comments
+
 
 
 [Back to top](#contents)
@@ -181,16 +185,39 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 
 ## Manual Testing
 
+| *App*       |    **Endpoint**              | **Expected Result**         | **Pass/Fail**  |
+|---          |   :---:                      |---                          | :---:          |
+| profiles    |   profiles/                  |Return a list of all the profiles in the database ordered by `created_date` |  **pass** |
+| profiles    |   profiles/<int:pk>/         |Return a single profile detail page | **pass** | 
+| profiles    |   profiles/<int:pk>/         |Display edit options if the logged-in user is the owner of the profile| **pass** | 
+| profiles    |   profiles/<int:pk>/  | If the user is not the owner of the profile, do not display edit options | **pass**  |
+| profiles    | profiles/          | When a user updates their profile, the new data is displayed |  **pass**   |
+| profiles    | profiles/<int:pk>/ | When a user updates their profile, the new data is displayed | **pass** |
+| profiles    | profiles/?ordering=posts_count | Display a list of posts from a particular profile in ascending order | **pass** |
+| profiles    | profiles/?ordering=-posts_count | Display a list of posts from a particular profile in decending order | **pass** | 
+| profiles    | profiles/?ordering=followers_count| Display a users `followers_count` in ascending order | **pass** |
+| profiles    | profiles/?ordering=-followers_count| Display a users `followers_count` in decending order | **pass** |
+| profiles   | profiles/?ordering=following_count| Display a users `following_count` in ascending order | **pass** |
+| profiles   |  profiles/?ordering=-following_count| Display a users `following_count` in decending order | **pass** |
+| profiles   | profiles/?ordering=owner__following__created_date| Display a list of profiles a user is following by `created_date` in acending order | **pass** |
+| profiles   | profiles/?ordering=-owner__following__created_date| Display a list of profiles a user is following by `created_date` in decending order | **pass** |
+| profiles   | profiles/?ordering=owner__followed__created_date | Display a list of profiles who are following a particular profile in acending order | **pass** |
+| profiles   | profiles/?ordering=-owner__followed__created_date | Display a list of profiles who are following a particular profile in decending order | **pass** |
+| posts | posts/ | Return a list of all the posts in the database ordered by `created_date` |  **pass** |
+| posts   | posts/          |When a logged in user updates a post, their updated data is reflected within the post list page | **pass** |
+| posts    |   posts/<int:pk>/         |Return a single post detail page | **pass** | 
+| posts    |   posts/<int:pk>/         |Display edit option if the logged-in user is the owner of the post| **pass** | 
+| posts    |   posts/<int:pk>/         |Display delete option if the logged-in user is the owner of the post| **pass** | 
+| posts | posts/<int:pk>/              |When a logged in user deletes a post, the post is removed from the database | **pass** |
+| posts   |  posts/<int:pk>/          |When a logged in user updates a post, their updated data is reflected within the post detail page | **pass** |
+| posts | posts/?ordering=likes_count | Display a posts `likes_count` in ascending order| **pass**|
+| posts | posts/?ordering=-likes_count| Display a posts `likes_count` in decending order| **pass** |
+| posts | posts/?ordering=comments_count | Display a posts `comments_count` in ascending order | **pass** |
+| posts | posts/?ordering=-comments_count | Display a posts `comments_count` in decending order | **pass** |
+| posts | posts/?ordering=likes__created_date | Display post likes by created date in ascending order | **pass** |
+| posts | posts/?ordering=-likes__created_date | Display post likes by created date in decending order | **pass** | 
 
 
-
-
-
-
-### profiles
-
-
-### comments
 
 
 ## Bugs Fixed
