@@ -188,10 +188,10 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | *App*       |    **Endpoint**              | **Expected Result**         | **Pass/Fail**  |
 |---          |   :---:                      |---                          | :---:          |
 | profiles    |   profiles/                  |Return a list of all the profiles in the database ordered by `created_date` |  **pass** |
+| profiles    | profiles/          | When a user updates their profile, the new data is displayed |  **pass**   |
 | profiles    |   profiles/<int:pk>/         |Return a single profile detail page | **pass** | 
 | profiles    |   profiles/<int:pk>/         |Display edit options if the logged-in user is the owner of the profile| **pass** | 
 | profiles    |   profiles/<int:pk>/  | If the user is not the owner of the profile, do not display edit options | **pass**  |
-| profiles    | profiles/          | When a user updates their profile, the new data is displayed |  **pass**   |
 | profiles    | profiles/<int:pk>/ | When a user updates their profile, the new data is displayed | **pass** |
 | profiles    | profiles/?ordering=posts_count | Display a list of posts from a particular profile in ascending order | **pass** |
 | profiles    | profiles/?ordering=-posts_count | Display a list of posts from a particular profile in decending order | **pass** | 
@@ -204,7 +204,9 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | profiles   | profiles/?ordering=owner__followed__created_date | Display a list of profiles who are following a particular profile in acending order | **pass** |
 | profiles   | profiles/?ordering=-owner__followed__created_date | Display a list of profiles who are following a particular profile in decending order | **pass** |
 | posts | posts/ | Return a list of all the posts in the database ordered by `created_date` |  **pass** |
-| posts   | posts/          |When a logged in user updates a post, their updated data is reflected within the post list page | **pass** |
+| posts   | posts/          |If the user is logged in, display option to add a post| **pass** |
+| posts   | posts/          |If the user is logged in and adds an image, the image is uploaded to Cloudinary and is viewable in a new browser tab | **pass** |
+| posts   | posts/          |When a logged in user updates a post, their updated data is reflected within the post list & post detail page | **pass** |
 | posts    |   posts/<int:pk>/         |Return a single post detail page | **pass** | 
 | posts    |   posts/<int:pk>/         |Display edit option if the logged-in user is the owner of the post| **pass** | 
 | posts    |   posts/<int:pk>/         |Display delete option if the logged-in user is the owner of the post| **pass** | 
@@ -216,9 +218,55 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | posts | posts/?ordering=-comments_count | Display a posts `comments_count` in decending order | **pass** |
 | posts | posts/?ordering=likes__created_date | Display post likes by created date in ascending order | **pass** |
 | posts | posts/?ordering=-likes__created_date | Display post likes by created date in decending order | **pass** | 
+| comments | comments/ | Display a list of comments which has a corresponding post ID| **pass** |
+| comments | comments/ | Display a list of comments in descending order - newest comments first| 
+**pass** |
+| comments | comments/ | Filter a comment by post and display results | **pass** |
+| comments | comments/ | If the user is logged in, display option to add a comment from a list of posts | **pass** |
+| comments | comments/ | When a user adds a comment to a post, the `comments_count` within the post list page and post detail page increases | **pass** |
+| comments | comments/<int:pk>/ | Return a single comment with a correct ID and a list of all it's values | **pass** |
+| comments | comments/<int:pk>/ | If the user is the owner of the comment, display edit and delete options | **pass** |
+| comments | comments/<int:pk>/ | If the user updates a comment, the data is reflected in the comments list and comment detail page | **pass** |
+| comments | comments/<int:pk>/ | If the user deletes a comment, the comment is removed from the database | **pass** |
+| comments | comments/<int:pk>/ | If the user is not the comment author, edit and delete options should not be displayed | **pass** |
+| likes   |  likes/ | Display a list of likes with a corresponding post ID | **pass** |
+| likes   |  likes/ | Display a users list of likes in descending order, newest first | **pass** |
+| likes   |  likes/ | If the user is logged in, display the option to like a post from a list of posts | **pass** |
+| likes   | likes/ | When a logged in user adds a like, the `likes_count` within the post list page and post detail page increases | **pass** |
+| likes   |  likes/ | If the user is not logged in, no option to like a post | **pass** |
+| likes   |  likes/<int:pk>/ | Display a single like with a correct ID and a list of all it's values | **pass** |
+| likes   |  likes/<int:pk>/ | If the user is logged in display the option to delete a like | **pass**|
+| likes  | likes/<int:pk>/ | If a logged in user deletes a like, the like is removed from the database and all corresponding pages | **pass** |
+| likes | likes/<int:pk>/  | If a non logged in user tries to delete a like, 403 Forbiddden displayed | **pass** |
+| followers   |  followers/ | Display a list of followers with a corresponding post ID | **pass** |
+| followers   |  followers/ | Display a users list of followers in descending order, newest first | **pass** |
+| followers   |  followers/ | If the user is logged in, display the option to follow a profile from a list of profiles | **pass** |
+| followers   | followers/ | When a logged in user adds a follower, the `followers_count` within the post list page and post detail page increases | **pass** |
+| followers   |  followers/ | If the user is not logged in, no option to follow a profile | **pass** |
+| followers   |  followers/<int:pk>/ | Display a single follower with a correct ID and a list of all it's values | **pass** |
+| followers   |  followers/<int:pk>/ | If the user is logged in, display the option to delete a follower | **pass**|
+| followers  | followers/<int:pk>/ | If a logged in user deletes a follower, the follower is removed from the database and all corresponding pages | **pass** |
+| followers | followers/<int:pk>/  | If a non logged in user tries to delete a follower, 403 Forbiddden displayed | **pass** |
+| bookmarks   |  bookmarks/ | Display a list of bookmarks with a corresponding post ID | **pass** |
+| bookmarks   |  bookmarks/ | Display a users list of bookmarks in descending order, newest first | **pass** |
+| bookmarks   |  bookmarks/ | If the user is logged in, display the option to bookmark a post from a list of posts | **pass** |
+| bookmarks   | bookmarks/ | When a logged in user bookmarks a post, the `bookmarks_count` within the profile list page increases | **pass** |
+| bookmarks   |  bookmarks/ | If the user is not logged in, no option to bookmark a post | **pass** |
+| bookmarks   |  bookmarks/<int:pk>/ | Display a single bookmark with a correct ID and a list of all it's values | **pass** |
+| bookmarks   |  bookmarks/<int:pk>/ | If the user is logged in, display the option to delete a bookmark | **pass**|
+| bookmarks  | bookmarks/<int:pk>/ | If a logged in user deletes a bookmark, the bookmark is removed from the database and all corresponding pages | **pass** |
+| bookmarks | bookmarks/<int:pk>/  | If a non logged in user tries to delete a bookmark, 403 Forbiddden displayed | **pass** |
+| contact   |  contact/ | Display a list of messages with a corresponding ID & `profile_id` | **pass** |
+| contact   |  contact/ | Display a list of messages in descending order, newest first | **pass** |
+| contact  |  contact/ | If the user is logged in, display the option to add a message with subject and message fields | **pass** |
+| contact   |  contact/ | If the user is not logged in, no option to send a message | **NEEDS ATTENTION** |
+| contact   |  contact/<int:pk>/ | Display a single message with a correct ID and a list of all it's values | **pass** |
+| contact   |  contact/<int:pk>/ | If the user is logged in, display the option to edit or delete a message | **pass**|
+| contact  | contact/<int:pk>/ | If a logged in user deletes a message, the message is removed from the database | **pass** |
+| contact | contact/<int:pk>/  | If a non logged in user tries to delete a bookmark, 403 Forbiddden displayed | **NEEDS ATTENTION**|
 
 
-
+***
 
 ## Bugs Fixed
 
