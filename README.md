@@ -864,6 +864,7 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 ![Heroku deployed site](docs/deployment/heroku/where-next-drf-api.webp)
 
+***
 
 # Credits
 
@@ -871,8 +872,14 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 - [Django REST framework](https://www.django-rest-framework.org/)
 
-- [Code Institute - *'drf_api'* walkthrough project](https://github.com/Code-Institute-Solutions/drf-api)
+- [Code Institute - *drf_api* walkthrough project](https://github.com/Code-Institute-Solutions/drf-api)
 
+
+### Media 
+
+- Default *User* & *Post* Images - [Iconfinder](https://www.iconfinder.com/)
+
+***
 
 # Acknowledgments
 
