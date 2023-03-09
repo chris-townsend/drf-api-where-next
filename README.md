@@ -96,7 +96,7 @@ GitHub projects were used to manage the development process using an agile appro
 
 
 
-# Entity Relationship Diagram
+## Entity Relationship Diagram
 
 
 ![Entity Relationship Diagram]()
@@ -123,34 +123,107 @@ The second database, which is a PostgreSQL database hosted by [ElephantSQL](http
 
 [Back to top](#contents)
 
-# Models
-
-### Comment
-
-The comment model allows the user to create a comment on a post. If a comment is deleted, it is deleted from both the User and post models
-
-| Database Value | Field Type    | Field Argument                     |
-| -------------- | ------------- | ---------------------------------- |
-| owner          | ForeignKey    | User, on_delete=models.CASCADE     |
-| created_date   | DateTimeField | auto_now_add=True                  |
-| updated_date   | DateTimeField | auto_now=True                      |
-| comment        | TextField     |                                    |
+## Models
 
 ### Profile
 
-### profiles
+The Profile model in Django has a unique one-to-one relationship with the User model, meaning that each registered user on the website will have a corresponding Profile model. This allows for additional values to be defined relative to the user, such as an image, bio and location. The Profile model serves as a convenient extension to the User model, providing an efficient way to store and access user-specific information.
 
-### comments
+| **Database Value** | **Field Type**    | **Field Argument**         |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | OneToOneField | `User, on_delete=models.CASCADE`     |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+| updated_date   | DateTimeField | `auto_now=True`                      |
+| name           | CharField     | `max_length=100, blank=True`         |
+| date_of_birth  | DateField     | `blank=True, null=True`              |
+| location       | CharField     | `max_length=50, choices=COUNTRIES, blank=True`  |
+| favourite_location | CharField | `max_length=50, blank=True`          |
+| bio             | TextField    | `blank=True`                         |
+| image          | ImageField    | `upload_to='images/', default='../default_user_s9bxgj'` |
 
 
+### Post
+
+The Post model will allow users to create their own posts and this is defined by several fields. The owner field is a OneToOneField that establishes a relationship with the User model, specifying that each post can only have one owner. The `created_date` and `updated_date` fields are DateTimeFields that are automatically set to the time of creation and last modification of the post, respectively. The title field is a CharField that can hold up to 200 characters, providing a concise yet descriptive title for the post. The about field is a TextField that allows for a longer description of the post's content, and is optional, indicated by the `'blank=True'` parameter. Finally, the image field is an ImageField that accepts image files and stores them in the `'images/'` directory, as specified by the `'upload_to'` parameter. If no image is provided, a default image specified by `'../default_post_twjz4m'` will be used, which can be changed as needed.
+
+| **Database Value** | **Field Type**    | **Field Argument**         |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | OneToOneField | `User, on_delete=models.CASCADE`     |
+| created_date   | DateTimeField | `auto_now_add=True`                  |
+| updated_date   | DateTimeField | `auto_now=True`                      |
+| title          | CharField     | `max_length=200`                     |
+| about          | TextField     | `blank=True`                         |
+| image          | ImageField    | `upload_to='images/', default='../default_post_twjz4m', blank=True` |
+
+
+### Comment
+
+The comment model allows the user to create a comment on a post. If a comment is deleted, it is deleted from both the User and post models. The `created_date` and `updated_date` fields are DateTimeFields that are automatically set to the time of creation and last modification of the comment, respectively.
+
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | `User, on_delete=models.CASCADE`   |
+| post           | ForeignKey    | `Post, on_delete=models.CASCADE`   |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+| updated_date   | DateTimeField | `auto_now=True`                    |
+| comment        | TextField     |                                    |
+
+
+### Like 
+
+The owner field is a ForeignKey that creates a relationship between the Like model and the User model, indicating that each Like instance belongs to one user. The `on_delete=models.CASCADE` argument specifies that if the associated user is deleted, all related Like instances will also be deleted. The post field is also a ForeignKey, creating a relationship between the Like model and the Post model. The `related_name='likes'` argument specifies the reverse relation from the Post model to the Like model, allowing posts to access their associated likes. The `on_delete=models.CASCADE` argument specifies that if the associated post is deleted, all related Like instances will also be deleted.
+
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | `User, on_delete=models.CASCADE`   |
+| post           | ForeignKey    | `Post, related_name='likes', on_delete=models.CASCADE`   |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+
+
+### Follow 
+
+The owner field is a ForeignKey that creates a relationship between the Follow model and the User model, indicating that each Follow instance belongs to one user. The `related_name='following'` argument specifies the reverse relation from the User model to the Follow model, allowing users to access their associated following instances. The `on_delete=models.CASCADE` argument specifies that if the associated user is deleted, all related Follow instances will also be deleted. The followed field is also a ForeignKey, creating a relationship between the Follow model and the User model. The `related_name='followed'` argument specifies the reverse relation from the User model to the Follow model, allowing users to access their associated followed instances. The `on_delete=models.CASCADE` argument specifies that if the associated user is deleted, all related Follow instances will also be deleted.
+
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | `User, related_name='following', on_delete=models.CASCADE`   |
+| followed       | ForeignKey    | `User, related_name='followed', on_delete=models.CASCADE`   |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+
+
+### Bookmark
+
+The Bookmark model is defined by three fields that establish a many-to-one relationship between users and posts. Together, these fields allow users to bookmark specific posts on the website for easy reference at a later date. The owner field is a ForeignKey that creates a relationship between the Bookmark model and the User model, indicating that each Bookmark instance belongs to one user. The `on_delete=models.CASCADE` argument specifies that if the associated user is deleted, all related Bookmark instances will also be deleted. The post field is also a ForeignKey, creating a relationship between the Bookmark model and the Post model. The `related_name='bookmark'` argument specifies the reverse relation from the Post model to the Bookmark model, allowing posts to access their associated bookmarks. The `on_delete=models.CASCADE` argument specifies that if the associated post is deleted, all related Bookmark instances will also be deleted.
+
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | `User, on_delete=models.CASCADE`   |
+| post           | ForeignKey    | `Post, related_name='bookmark', on_delete=models.CASCADE`   |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+
+
+### Contact 
+
+The Contact model in Django is defined by several fields that establish a many-to-one relationship between users and messages. These fields allow users to send messages to the website administrator and provides a reliable and efficient way to manage user feedback and communication. The owner field is a ForeignKey that creates a relationship between the Contact model and the User model, indicating that each Contact instance belongs to one user. The `on_delete=models.CASCADE` argument specifies that if the associated user is deleted, all related Contact instances will also be deleted. The subject field is a CharField that defines a short title or summary for the message. The `max_length=55` argument specifies the maximum number of characters allowed in this field. The message field is a TextField that allows users to enter their message. The created_date field is a DateTimeField that is automatically set to the time of creation of the Contact instance, with the `auto_now_add=True` argument.
+
+| Database Value | Field Type    | Field Argument                     |
+| -------------- | ------------- | ---------------------------------- |
+| owner          | ForeignKey    | `User, on_delete=models.CASCADE`   |
+| subject        | CharField     | `max_length=55`                    |
+| message        | TextField     | `max_length=255`                   |
+| created_date   | DateTimeField | `auto_now_add=True`                |
+| updated_date   | DateTimeField | `auto_now=True`                    |
+
+
+***
 
 [Back to top](#contents)
 
-# Testing
+## Testing
 
-## Python
+### Python
 
-### PEP8 Validation
+#### PEP8 Validation
 
 Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test the Python files. The table below shows the pages tested and their result, all pages are error-free in the final deployment.
 
@@ -183,7 +256,7 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 
 ***
 
-## Manual Testing
+### Manual Testing
 
 | *App*       |    **Endpoint**              | **Expected Result**         | **Pass/Fail**  |
 |---          |   :---:                      |---                          | :---:          |
