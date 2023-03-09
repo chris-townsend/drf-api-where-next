@@ -9,7 +9,7 @@ class ContactList(generics.ListCreateAPIView):
     """
     List messages or create a message if the user is logged-in
     """
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
     queryset = ContactForm.objects.all()
     serializer_class = ContactSerializer
 
