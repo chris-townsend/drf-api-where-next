@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import Post
 from likes.models import Like
 from comments.models import Comment
+from bookmarks.models import Bookmark
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -22,6 +23,7 @@ class PostSerializer(serializers.ModelSerializer):
     comments_count = serializers.ReadOnlyField()
     comment_id = serializers.SerializerMethodField()
     bookmark_count = serializers.ReadOnlyField()
+    bookmark_id = serializers.SerializerMethodField()
 
     def get_created_date(self, obj):
         """
@@ -86,6 +88,21 @@ class PostSerializer(serializers.ModelSerializer):
 
         return None
 
+    def get_bookmark_id(self, obj):
+        """
+        Display a users current bookmark count and bookmark id
+        if the user is logged-in, else the field will display null
+        """
+        user = self.context['request'].user
+        if user.is_authenticated:
+            bookmark = Bookmark.objects.filter(
+                owner=user,
+                post=obj
+            ).first()
+            return bookmark.id if bookmark else None
+
+        return None
+
     class Meta:
         """
         Specify fields from Post model
@@ -95,5 +112,5 @@ class PostSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_date', 'updated_date', 'title', 'about', 'image',
             'like_id', 'likes_count', 'comments_count', 'bookmark_count',
-            'comment_id'
+            'comment_id', 'bookmark_id'
         ]
