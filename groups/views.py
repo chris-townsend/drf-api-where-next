@@ -16,3 +16,12 @@ class GroupList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve, update & delete a group if you're the owner.
+    """
+    queryset = Group.objects.all().order_by('-created_date')
+    permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = GroupSerializer
