@@ -10,9 +10,11 @@ You can view the front-end README.md here -
 
 You can view the back-end README.md here - 
 
+#
 
 *Please note: To open any external links in a new browser tab, please press **CTRL + Click***
 
+***
 
 ## Contents
 
@@ -97,18 +99,20 @@ GitHub projects were used to manage the development process using an agile appro
 
 ![GitHub kanban board](docs/features/agile/github-kanban-drf-api.webp)
 
-
+***
 
 # Entity Relationship Diagram
 
+To create the entity relationship diagram, I used a graph modelling tool [Smartdraw](https://www.smartdraw.com/). It shows the relationship between all models in the database.
 
-![Entity Relationship Diagram]()
+![Entity Relationship Diagram](docs/features/entity-relationship/entity-relationship-diagram.webp)
 
-[Back to top](#contents)
+
+***
+
+[Back to top ⇧](#contents)
 
 # Database
-
-
 
 For this project, I implemented two databases.
 
@@ -117,7 +121,7 @@ The first one was the [SQLite](https://www.sqlite.org/index.html). This was used
 The second database, which is a PostgreSQL database hosted by [ElephantSQL](https://www.elephantsql.com/) was used for the production database.
 
 
-[Back to top](#contents)
+[Back to top ⇧](#contents)
 
 ***
 
@@ -215,7 +219,7 @@ The Contact model in Django is defined by several fields that establish a many-t
 
 ***
 
-[Back to top](#contents)
+[Back to top ⇧](#contents)
 
 # Testing
 
@@ -336,6 +340,8 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | contact | contact/<int:pk>/  | If a non logged in user tries to delete a message, 403 Forbiddden displayed | **pass**|
 
 
+[Back to top ⇧](#contents)
+
 ***
 
 ## Bugs Fixed
@@ -395,7 +401,8 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 
 - [CI PEP8 Linter](https://pep8ci.herokuapp.com/#)
 
-[Back to top](#contents)
+
+[Back to top ⇧](#contents)
 
 *** 
 
