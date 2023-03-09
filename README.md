@@ -219,8 +219,7 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | posts | posts/?ordering=likes__created_date | Display post likes by created date in ascending order | **pass** |
 | posts | posts/?ordering=-likes__created_date | Display post likes by created date in decending order | **pass** | 
 | comments | comments/ | Display a list of comments which has a corresponding post ID| **pass** |
-| comments | comments/ | Display a list of comments in descending order - newest comments first| 
-**pass** |
+| comments | comments/ | Display a list of comments in descending order - newest comments first |**pass** |
 | comments | comments/ | Filter a comment by post and display results | **pass** |
 | comments | comments/ | If the user is logged in, display option to add a comment from a list of posts | **pass** |
 | comments | comments/ | When a user adds a comment to a post, the `comments_count` within the post list page and post detail page increases | **pass** |
@@ -259,11 +258,11 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | contact   |  contact/ | Display a list of messages with a corresponding ID & `profile_id` | **pass** |
 | contact   |  contact/ | Display a list of messages in descending order, newest first | **pass** |
 | contact  |  contact/ | If the user is logged in, display the option to add a message with subject and message fields | **pass** |
-| contact   |  contact/ | If the user is not logged in, no option to send a message | **NEEDS ATTENTION** |
+| contact   |  contact/ | If the user is not logged in, no option to send a message | **pass** |
 | contact   |  contact/<int:pk>/ | Display a single message with a correct ID and a list of all it's values | **pass** |
 | contact   |  contact/<int:pk>/ | If the user is logged in, display the option to edit or delete a message | **pass**|
 | contact  | contact/<int:pk>/ | If a logged in user deletes a message, the message is removed from the database | **pass** |
-| contact | contact/<int:pk>/  | If a non logged in user tries to delete a bookmark, 403 Forbiddden displayed | **NEEDS ATTENTION**|
+| contact | contact/<int:pk>/  | If a non logged in user tries to delete a message, 403 Forbiddden displayed | **pass**|
 
 
 ***
