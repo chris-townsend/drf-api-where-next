@@ -232,7 +232,7 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 ![Code Institute's Python linter](docs/testing/python/ci-python-linter.webp)
 
 
-| *Page / App*           |**where_next_drf_api**|  **bookmarks** |**comments** |**contact**|
+| *File / App*           |**where_next_drf_api**|  **bookmarks** |**comments** |**contact**|
 | ---                    |      :---:           |    :---:       |   :---:     |  :---:    |
 | `admin.py`             |     *n/a*            |    *n/a*       |   *n/a*     |  *n/a*    | 
 | `apps.py`              |     *n/a*            |    *pass*      |   *pass*    |  *pass*   |
@@ -244,7 +244,7 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 | `wsgi.py`              |     *pass*           |    *n/a*       |   *n/a*     |  *n/a*    |
 
 
-| *Page / App*           |  **followers**  |   **likes**   |  **posts**  |  **profiles**  |
+| *File / App*           |  **followers**  |   **likes**   |  **posts**  |  **profiles**  |
 | ---                    |      :---:      |    :---:      |   :---:     |    :---:       | 
 | `admin.py`             |    *n/a*        |    *n/a*      |   *n/a*     |    *n/a*       |
 | `apps.py`              |    *pass*       |   *pass*      |  *pass*     |    *pass*      |
