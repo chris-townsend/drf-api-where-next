@@ -4,11 +4,15 @@ This repository is the back-end REST API which is used by my front-end project, 
 
 You can view the live site here - 
 
-You can view the live API here - 
+You can view the live API [here](https://where-next-drf-api.herokuapp.com/)
 
 You can view the front-end README.md here - 
 
 You can view the back-end README.md here - 
+
+
+*Please note: To open any external links in a new browser tab, please press **CTRL + Click***
+
 
 ## Contents
 
@@ -41,14 +45,13 @@ You can view the back-end README.md here -
 
 # 
 
-## Objective
+# Objective
 
-
-*Please note: To open any external links in a new browser tab, please press **CTRL + Click***
+The purpose of this API is to efficiently and securely deliver data to support the 'Where Next' front-end project. My goal is to create clear and concise data models that serve the project's needs. Each API endpoint has been carefully designed to serve a specific function and has undergone extensive testing to ensure that data manipulation is limited to authorized users only.
 
 #
 
-## User Experience (UX)
+# User Experience (UX)
 
 ### User Stories
 
@@ -88,7 +91,7 @@ You can view the back-end README.md here -
 
 ***
 
-## Agile Methodology
+# Agile Methodology
 
 GitHub projects were used to manage the development process using an agile approach. To view the project kanban board, please click on the link [here](https://github.com/users/chris-townsend/projects/6/views/1)
 
@@ -96,7 +99,7 @@ GitHub projects were used to manage the development process using an agile appro
 
 
 
-## Entity Relationship Diagram
+# Entity Relationship Diagram
 
 
 ![Entity Relationship Diagram]()
@@ -114,16 +117,11 @@ The first one was the [SQLite](https://www.sqlite.org/index.html). This was used
 The second database, which is a PostgreSQL database hosted by [ElephantSQL](https://www.elephantsql.com/) was used for the production database.
 
 
-### Production Database
-
-
-
-### Development Database
-
-
 [Back to top](#contents)
 
-## Models
+***
+
+# Models
 
 ### Profile
 
@@ -219,7 +217,7 @@ The Contact model in Django is defined by several fields that establish a many-t
 
 [Back to top](#contents)
 
-## Testing
+# Testing
 
 ### Python
 
@@ -256,7 +254,7 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 
 ***
 
-### Manual Testing
+## Manual Testing
 
 | *App*       |    **Endpoint**              | **Expected Result**         | **Pass/Fail**  |
 |---          |   :---:                      |---                          | :---:          |
