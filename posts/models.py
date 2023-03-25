@@ -11,7 +11,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=200)
-    about = models.TextField(blank=True)
+    about = models.TextField()
     image = models.ImageField(
         upload_to='images/', default='../default_post_twjz4m', blank=True)
 
