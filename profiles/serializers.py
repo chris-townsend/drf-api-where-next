@@ -19,6 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     following_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     bookmarks_count = serializers.ReadOnlyField()
+    date_of_birth = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%SZ")
 
     def get_is_owner(self, obj):
         request = self.context['request']
