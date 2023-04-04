@@ -3,11 +3,11 @@ from rest_framework import serializers
 from .models import ContactForm
 
 
-class ContactSerializer(serializers.ModelSerializer):
+class ContactFormSerializer(serializers.ModelSerializer):
     """
     Serializer for the ContactForm model
     """
-    owner = serializers.ReadOnlyField(source="owner.username")
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
     created_date = serializers.SerializerMethodField()
