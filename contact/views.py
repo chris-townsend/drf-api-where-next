@@ -9,7 +9,7 @@ class ContactList(generics.ListCreateAPIView):
     """
     List messages or create a message if the user is logged-in
     """
-    permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = ContactForm.objects.all()
     serializer_class = ContactFormSerializer
 
@@ -22,6 +22,6 @@ class ContactDetail(generics.RetrieveUpdateDestroyAPIView):
     Retrieve a message and delete it by id if the user is the owner
     of the message or an admin user
     """
-    permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
+    permission_classes = [permissions.IsAdminUser]
     queryset = ContactForm.objects.all()
     serializer_class = ContactFormSerializer

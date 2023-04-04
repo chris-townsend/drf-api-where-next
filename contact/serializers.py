@@ -7,7 +7,7 @@ class ContactFormSerializer(serializers.ModelSerializer):
     """
     Serializer for the ContactForm model
     """
-    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    owner = serializers.ReadOnlyField(source="owner.username")
     profile_id = serializers.ReadOnlyField(source="owner.profile.id")
     profile_image = serializers.ReadOnlyField(source="owner.profile.image.url")
     created_date = serializers.SerializerMethodField()
