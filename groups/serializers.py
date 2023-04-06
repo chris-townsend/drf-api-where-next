@@ -12,6 +12,7 @@ class GroupSerializer(serializers.ModelSerializer):
     members = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), many=True)
     created_date = serializers.SerializerMethodField()
+    is_member = serializers.SerializerMethodField()
 
     def get_created_date(self, obj):
         """
@@ -19,7 +20,15 @@ class GroupSerializer(serializers.ModelSerializer):
         """
         return naturaltime(obj.created_date)
 
+    def get_is_member(self, obj):
+        """
+        Returns a boolean indicating if the authenticated
+        user is a member of the group
+        """
+        user = self.context['request'].user
+        return user in obj.members.all()
+
     class Meta:
         model = Group
         fields = ['id', 'owner', 'group_name', 'description',
-                  'created_date', 'members']
+                  'created_date', 'members', 'is_member']
