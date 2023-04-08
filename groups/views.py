@@ -63,7 +63,7 @@ class LeaveGroupView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GroupSerializer
 
-    def post(self, request, pk=None):
+    def delete(self, request, pk=None):
         group = self.get_object()
         user = request.user
         if user not in group.members.all():
