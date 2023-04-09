@@ -35,7 +35,7 @@ class JoinGroupView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GroupSerializer
 
-    def get(self, request, pk=None):
+    def post(self, request, pk=None):
         group = self.get_object()
         user = request.user
         if user in group.members.all():
