@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
-from where_next_drf_api.permissons import IsOwnerOrReadOnly
+from where_next_drf_api.permissions import IsOwnerOrReadOnly
 from .models import Group
 from .serializers import GroupSerializer
 
