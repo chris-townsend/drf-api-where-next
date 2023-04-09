@@ -3,7 +3,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, filters
 from .models import Post
 from .serializers import PostSerializer
-from where_next_drf_api.permissons import IsOwnerOrReadOnly
+from where_next_drf_api.permissions import IsOwnerOrReadOnly
 
 
 class PostList(generics.ListCreateAPIView):

@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from .models import ContactForm
 from .serializers import ContactFormSerializer
-from where_next_drf_api.permissons import IsOwnerOrReadOnly
+from where_next_drf_api.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAdminUser
 
 
