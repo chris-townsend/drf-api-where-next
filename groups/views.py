@@ -55,9 +55,6 @@ class JoinGroupView(generics.GenericAPIView):
         obj = generics.get_object_or_404(queryset, pk=self.kwargs['pk'])
         return obj
 
-    def get_queryset(self):
-        return Group.objects.all()
-
 
 class LeaveGroupView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -79,6 +76,3 @@ class LeaveGroupView(generics.GenericAPIView):
         queryset = self.get_queryset()
         obj = generics.get_object_or_404(queryset, pk=self.kwargs['pk'])
         return obj
-
-    def get_queryset(self):
-        return Group.objects.all()
