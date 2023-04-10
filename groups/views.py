@@ -47,9 +47,6 @@ class JoinGroupView(generics.GenericAPIView):
         serializer = GroupSerializer(group)
         return Response(serializer.data)
 
-    def post(self, request, pk=None):
-        return self.get(request, pk)
-
     def get_object(self):
         queryset = self.get_queryset()
         obj = generics.get_object_or_404(queryset, pk=self.kwargs['pk'])
