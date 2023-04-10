@@ -39,9 +39,8 @@ class JoinGroupView(generics.GenericAPIView):
         group = Group.objects.get(pk=pk)
         user = request.user
         if user in group.members.all():
-            return Response(
-                {"detail": "You are already a member of this group."},
-                status=status.HTTP_400_BAD_REQUEST)
+            serializer = GroupSerializer(group)
+            return Response(serializer.data)
         group.members.add(user)
         group.save()
         serializer = GroupSerializer(group)
