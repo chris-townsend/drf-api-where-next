@@ -35,7 +35,7 @@ class JoinGroupView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GroupSerializer
 
-    def post(self, request, group_id=None):
+    def get(self, request, pk=None):
         group = self.get_object()
         user = request.user
         if user in group.members.all():
@@ -47,9 +47,12 @@ class JoinGroupView(generics.GenericAPIView):
         serializer = GroupSerializer(group)
         return Response(serializer.data)
 
+    def post(self, request, pk=None):
+        return self.get(request, pk)
+
     def get_object(self):
         queryset = self.get_queryset()
-        obj = generics.get_object_or_404(queryset, pk=self.kwargs['group_id'])
+        obj = generics.get_object_or_404(queryset, pk=self.kwargs['pk'])
         return obj
 
     def get_queryset(self):
@@ -60,7 +63,7 @@ class LeaveGroupView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = GroupSerializer
 
-    def delete(self, request, group_id=None):
+    def delete(self, request, pk=None):
         group = self.get_object()
         user = request.user
         if user not in group.members.all():
@@ -74,7 +77,7 @@ class LeaveGroupView(generics.GenericAPIView):
 
     def get_object(self):
         queryset = self.get_queryset()
-        obj = generics.get_object_or_404(queryset, pk=self.kwargs['group_id'])
+        obj = generics.get_object_or_404(queryset, pk=self.kwargs['pk'])
         return obj
 
     def get_queryset(self):
