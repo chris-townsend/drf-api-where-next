@@ -36,7 +36,7 @@ class JoinGroupView(generics.GenericAPIView):
     serializer_class = GroupSerializer
 
     def get(self, request, pk=None):
-        group = self.get_object()
+        group = Group.objects.get(pk=pk)
         user = request.user
         if user in group.members.all():
             return Response(
@@ -64,7 +64,7 @@ class LeaveGroupView(generics.GenericAPIView):
     serializer_class = GroupSerializer
 
     def delete(self, request, pk=None):
-        group = self.get_object()
+        group = Group.objects.get(pk=pk)
         user = request.user
         if user not in group.members.all():
             return Response(
