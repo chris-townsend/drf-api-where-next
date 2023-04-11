@@ -28,7 +28,7 @@ class GroupSerializer(serializers.ModelSerializer):
         user is a member of the group
         """
         user = self.context['request'].user
-        return user in obj.members.all()
+        return user in [pg.user.user for pg in obj.members.all()]
 
     def get_groups_count(self, obj):
         """

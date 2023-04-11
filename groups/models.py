@@ -12,8 +12,8 @@ class Group(models.Model):
     group_name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(
-        Profile, related_name='group_members', blank=True)
+    members = models.ManyToManyField(User,
+                                     related_name='group_members', blank=True)
 
     class Meta:
         ordering = ['-created_date']
