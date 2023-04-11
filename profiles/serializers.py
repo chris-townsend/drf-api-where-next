@@ -19,6 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     following_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     bookmarks_count = serializers.ReadOnlyField()
+    groups_count = serializers.ReadOnlyField()
     date_of_birth = serializers.DateField(format="%Y-%m-%d")
 
     def get_is_owner(self, obj):
@@ -51,6 +52,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         return naturaltime(obj.updated_date)
 
+    def get_groups_count(self, obj):
+        """
+        Returns the number of groups the profile's owner is a member of
+        """
+        return obj.owner.groups.count()
+
     class Meta:
         """
         Specify fields from Profile model
@@ -61,5 +68,5 @@ class ProfileSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_date', 'updated_date', 'name', 'location',
             'favourite_location', 'date_of_birth', 'bio', 'image', 'is_owner',
             'following_id', 'posts_count', 'following_count',
-            'followers_count', 'bookmarks_count'
+            'followers_count', 'bookmarks_count', 'groups_count'
         ]
