@@ -14,7 +14,7 @@ class GroupSerializer(serializers.ModelSerializer):
     members = ProfileSerializer(many=True, read_only=True)
     created_date = serializers.SerializerMethodField()
     is_member = serializers.SerializerMethodField()
-    groups_count = serializers.SerializerMethodField()
+    groups_count = serializers.ReadOnlyField()
 
     def get_created_date(self, obj):
         """
@@ -39,4 +39,5 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'owner', 'group_name', 'description',
-                  'created_date', 'members', 'is_member', 'owner_profile']
+                  'created_date', 'members', 'is_member', 'owner_profile',
+                  'groups_count']
