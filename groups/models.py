@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from profiles.models import Profile
 
 
 class Group(models.Model):
@@ -12,7 +13,7 @@ class Group(models.Model):
     description = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     members = models.ManyToManyField(
-        User, related_name='group_members', blank=True)
+        Profile, related_name='group_members', blank=True)
 
     class Meta:
         ordering = ['-created_date']

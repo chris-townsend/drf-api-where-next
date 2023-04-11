@@ -14,6 +14,7 @@ class GroupSerializer(serializers.ModelSerializer):
     members = ProfileSerializer(many=True, read_only=True)
     created_date = serializers.SerializerMethodField()
     is_member = serializers.SerializerMethodField()
+    groups_count = serializers.SerializerMethodField()
 
     def get_created_date(self, obj):
         """
@@ -28,6 +29,12 @@ class GroupSerializer(serializers.ModelSerializer):
         """
         user = self.context['request'].user
         return user in obj.members.all()
+
+    def get_groups_count(self, obj):
+        """
+        Returns the number of groups the profile's owner is a member of
+        """
+        return obj.owner.groups.count()
 
     class Meta:
         model = Group
