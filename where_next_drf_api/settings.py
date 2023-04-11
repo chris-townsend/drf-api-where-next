@@ -160,7 +160,7 @@ WSGI_APPLICATION = 'where_next_drf_api.wsgi.application'
 # When there is an environment variable for DEV, connect to sqlite database
 # else connect to external database (elephant sql)
 
-if 'DEV' in os.environ:
+"""if 'DEV' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -171,6 +171,11 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
+"""
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
