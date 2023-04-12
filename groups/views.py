@@ -62,14 +62,12 @@ class LeaveGroupView(generics.GenericAPIView):
 
     def delete(self, request, pk=None):
         group = Group.objects.get(pk=pk)
-        user_profile = Profile.objects.get(user=request.user)
+        user_profile = request.user.profile
         if user_profile not in group.members.all():
-            return Response(
-                {"detail": "You are not a member of this group."},
-                status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data)
         group.members.remove(user_profile)
         group.save()
-        serializer = GroupSerializer(group)
+        serializer = GroupSerializer(group, context={'request': request})
         return Response(serializer.data)
 
     def get_object(self):
