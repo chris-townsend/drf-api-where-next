@@ -41,11 +41,12 @@ class JoinGroupView(generics.GenericAPIView):
         user_profile = request.user.profile
         if user_profile in group.members.all():
             serializer = GroupSerializer(group, context={'request': request})
-            return Response(serializer.data)
+            return Response({"group": serializer.data,
+                             "action": "Leave Group"})
         group.members.add(user_profile)
         group.save()
         serializer = GroupSerializer(group, context={'request': request})
-        return Response(serializer.data)
+        return Response({"group": serializer.data, "action": "Join Group"})
 
     def post(self, request, pk=None):
         return self.get(request, pk)
