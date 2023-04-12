@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from where_next_drf_api.permissions import IsOwnerOrReadOnly
 from .models import Group
 from .serializers import GroupSerializer
+from profiles.models import Profile
 
 
 class GroupList(generics.ListCreateAPIView):
@@ -37,13 +38,13 @@ class JoinGroupView(generics.GenericAPIView):
 
     def get(self, request, pk=None):
         group = Group.objects.get(pk=pk)
-        user = request.user
-        if user in group.members.all():
-            serializer = GroupSerializer(group)
+        user_profile = request.user.profile
+        if user_profile in group.members.all():
+            serializer = GroupSerializer(group, context={'request': request})
             return Response(serializer.data)
-        group.members.add(user)
+        group.members.add(user_profile)
         group.save()
-        serializer = GroupSerializer(group)
+        serializer = GroupSerializer(group, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request, pk=None):
@@ -61,12 +62,12 @@ class LeaveGroupView(generics.GenericAPIView):
 
     def delete(self, request, pk=None):
         group = Group.objects.get(pk=pk)
-        user = request.user
-        if user not in group.members.all():
+        user_profile = Profile.objects.get(user=request.user)
+        if user_profile not in group.members.all():
             return Response(
                 {"detail": "You are not a member of this group."},
                 status=status.HTTP_400_BAD_REQUEST)
-        group.members.remove(user)
+        group.members.remove(user_profile)
         group.save()
         serializer = GroupSerializer(group)
         return Response(serializer.data)
