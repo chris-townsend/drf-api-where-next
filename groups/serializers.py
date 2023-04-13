@@ -28,7 +28,7 @@ class GroupSerializer(serializers.ModelSerializer):
         user is the owner of the group
         """
         user = self.context['request'].user
-        return user == obj.owner
+        return obj.members.filter(id=user.id).exists()
 
     def get_groups_count(self, obj):
         """
