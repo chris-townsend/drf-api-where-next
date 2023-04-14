@@ -16,6 +16,7 @@ class ProfileList(generics.ListAPIView):
         followers_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True),
         bookmarks_count=Count('owner__bookmark', distinct=True),
+        groups_count=Count('owner__group', distinct=True),
     ).order_by('-created_date')
     serializer_class = ProfileSerializer
 
@@ -28,6 +29,7 @@ class ProfileList(generics.ListAPIView):
         'posts_count',
         'followers_count',
         'following_count',
+        'groups_count',
         'owner__following__created_date',
         'owner__followed__created_date',
         ]
@@ -47,6 +49,7 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
         followers_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True),
         bookmarks_count=Count('owner__bookmark', distinct=True),
+        groups_count=Count('owner__group', distinct=True),
     ).order_by('-created_date')
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = ProfileSerializer
