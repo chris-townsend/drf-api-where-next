@@ -1,5 +1,7 @@
 # **_Where Next - Django REST Framework API_**
 
+![Where Next logo](docs/features/images/where-next-logo.webp)
+
 This repository is the back-end **REST API** which is used by my front-end project - [Where Next](https://where-next-social.herokuapp.com/)
 
 You can view the live site [**here**](https://where-next-social.herokuapp.com/)
