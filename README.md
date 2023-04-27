@@ -883,5 +883,8 @@ if 'CLIENT_ORIGIN_DEV' in os.environ:
 
 # Acknowledgments
 
+- I would like to express my gratitude to **Sean** at Code Institute's tutor support for providing me with valuable guidance in configuring my JoinGroupView and LeaveGroupView classes in the groups app.
+
+<br>
 
 [Back to top ⇧](#contents)
