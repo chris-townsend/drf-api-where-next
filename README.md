@@ -1,14 +1,12 @@
-# **_Where next? - Django REST Framework API_**
+# **_Where Next - Django REST Framework API_**
 
-This repository is the back-end REST API which is used by my front-end project, [Where next]()
+This repository is the back-end **REST API** which is used by my front-end project - [Where Next](https://where-next-social.herokuapp.com/)
 
-You can view the live site here - 
+You can view the live site [**here**](https://where-next-social.herokuapp.com/)
 
-You can view the live API [here](https://where-next-drf-api.herokuapp.com/)
+You can view the live API [**here**](https://where-next-drf-api.herokuapp.com/)
 
-You can view the front-end README.md here - 
-
-You can view the back-end README.md here - 
+You can view the front-end *README.md* [**here**](https://github.com/chris-townsend/where-next/blob/main/README.md)
 
 #
 
