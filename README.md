@@ -103,7 +103,7 @@ GitHub projects were used to manage the development process using an agile appro
 
 # Entity Relationship Diagram
 
-To create the entity relationship diagram, I used a graph modelling tool [Smartdraw](https://www.smartdraw.com/). It shows the relationship between all models in the database.
+To create the entity relationship diagram, I used a graph modelling tool [Smartdraw](https://www.smartdraw.com/). It shows the relationship between all models in the database. However, I must mention that the groups app was a late addition to my front-end, which is why it's not included in the entity relationship diagram below. In future updates, I plan to add the groups app to the diagram to make it clear to the users how it is implemented with the rest of the functionality.
 
 ![Entity Relationship Diagram](docs/features/entity-relationship/entity-relationship-diagram.webp)
 
@@ -374,8 +374,6 @@ Code Institutes [PEP8](https://pep8ci.herokuapp.com/) linter was used to test th
 - [django-rest-auth](https://pypi.org/project/django-rest-auth/) - Provides a set of REST API endpoints for Authentication and Registration
 - [djangorestframework-simplejwt](https://pypi.org/project/djangorestframework-simplejwt/) - JSON Web Token authentication plugin for the Django REST Framework.
 - [gunicorn](https://pypi.org/project/gunicorn/) - A Python WSGI HTTP Server for UNIX.
-- [idna](https://pypi.org/project/idna/) - Support for the Internationalized Domain Names in Applications (IDNA) protocol
-- [mypy-extensions](https://pypi.org/project/mypy-extensions/) - Defines extensions to the standard “typing” module that are supported by the mypy type checker and the mypyc compiler.
 - [oauthlib](https://pypi.org/project/oauthlib/) - Implements the logic of OAuth1 or OAuth2 without assuming a specific HTTP request object or web framework.
 - [pathspec](https://pypi.org/project/pathspec/) - Utility library for pattern matching of file paths
 - [Pillow](https://pypi.org/project/Pillow/) - Adds image processing capabilities to your Python interpreter
